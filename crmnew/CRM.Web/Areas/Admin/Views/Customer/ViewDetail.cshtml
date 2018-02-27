@@ -1,0 +1,161 @@
+﻿@using CRM.Admin.Models
+@using CRM.Admin
+@model CRM.Entities.Models.CustomerContactModel
+@{
+    ViewBag.Title = "ViewDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    UserInfo userInfo = System.Web.HttpContext.Current.Session["UserInfo"] as UserInfo;
+    string path = "/Tenants/" + userInfo.TenantAlias + "/";
+    string urlImage = Model.CustomerLogo == null ? path + "default.png" : path + Model.CustomerLogo;
+}
+
+    <div id="breadcrumbs" class="breadcrumbs">
+        <script type="text/javascript">
+            try { multi.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+        <ul class="breadcrumb">
+            <li><i class="multi-icon fa fa-home icon_house"></i></li>
+            <li><a href="#">@Caching.GetValue("Global.Home")</a></li>
+            <li><a href="#" title="">@Caching.GetValue("Customer.Customer")</a></li>
+            <li class="active">@Html.Raw(Model.CustomerName)</li>
+        </ul>
+        <!-- /.breadcrumb -->
+        <div id="nav-search" class="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+                    <input type="text" autocomplete="off" id="nav-search-input" class="nav-search-input" placeholder="@Caching.GetValue("Global.Search")">
+                    <i class="multi-icon fa icon_search nav-search-icon"></i>
+                </span>
+            </form>
+        </div>
+        <!-- /.nav-search -->
+    </div>
+    <div class="page-content">
+        <div class="page-header">
+            <ul class="btn-top pull-right">
+                <li><a href="#" class="back_big">@Caching.GetValue("Global.Back")</a></li><!--<li><a class="cancel_big" href="#">Cancel</a></li>-->
+            </ul>
+            <h1>
+                @Model.CustomerName
+                <!--<small> <i class="multi-icon fa arrow_triangle-right"></i> bootstrap grid sizing </small>-->
+            </h1>
+
+        </div>
+        <!-- /.page-header -->
+        <!--  PAGE CONTENT BEGINS -->
+        <div class="center mt60">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="user-profile row">
+                        <div class="col-xs-12 col-sm-4 center hover_edit_box">
+                            <div>
+                                <span class="profile-picture"><img alt="Bunadspesialisten AS" src="@urlImage" class="editable img-responsive  editable-empty"></span>
+                                <div class="space-12"></div>
+                                <div class="width-70 label label-info label-xlg arrowed-in arrowed-in-right">
+                                    <div class="inline position-relative"> <a href="#" class="user-title-label"> <i class="multi-icon fa icon_pin orange"></i> &nbsp; <span class="white bolder">@Html.Raw(Model.CustomerName)</span> </a> </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="profile-contact-info">
+                                <div class="profile-contact-links"> <i class="multi-icon fa icon_globe-2 bigger-125 blue"></i> @Caching.GetValue("Global.Url"): &nbsp;<a href="@Model.Website">@Model.Website</a> </div>
+                                <div class="space-6"></div>
+                                <div class="profile-social-links align-center"> 
+                                    <a href="@Model.FacebookURL" class="tooltip-info" title="" data-original-title="Visit my Facebook"> <i class="middle multi-icon fa social_facebook_circle  bigger-190 blue"></i> </a> 
+                                    <a href="@Model.TwitterURL" class="tooltip-info" title="" data-original-title="Visit my Twitter"> <i class="middle multi-icon fa social_twitter_circle bigger-190 light-blue"></i> </a> 
+                                    <a href="@Model.GoogleplusURL" class="tooltip-error" title="" data-original-title="Visit my Google plus"> <i class="middle multi-icon fa social_googleplus_circle bigger-190 red"></i> </a> 
+                                    <a href="@Model.LinkedURL" class="tooltip-error" title="" data-original-title="Visit my Linkedin"> <i class="middle multi-icon fa social_linkedin_circle  bigger-190 blue"></i> </a> 
+                                </div>
+                                <div class="space-6"></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="align-right">
+                                @Html.Partial("CustomerSummary", Model)
+                            </div>
+                            <div class="space-12"></div>
+                            <div class="profile-user-info profile-user-info-striped">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Caching.GetValue("Tenant.TenantName") <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left bolder">@Html.Raw(Model.CustomerName)</div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Caching.GetValue("Global.Login.lblMail") <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left bolder">@Model.Email</div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Caching.GetValue("Customer.PostalAddress") <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left">@Html.Raw(Model.PostedAddress)</div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Caching.GetValue("Customer.VisitingAddress") </div>
+                                    <div class="profile-info-value text-left">@Html.Raw(Model.VisitingAddress)</div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Caching.GetValue("Tenant.CountryName")</div>
+                                    <div class="profile-info-value text-left">@Html.Raw(Model.CountryName)</div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Caching.GetValue("Tenant.Fax")</div>
+                                    <div class="profile-info-value text-left"> @Html.Raw(Model.Fax) </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Caching.GetValue("Tenant.OrgNumber")</div>
+                                    <div class="profile-info-value text-left">@Model.OrgNumber</div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Caching.GetValue("Tenant.CreatedDate")</div>
+                                    <div class="profile-info-value text-left">@(Model.CreatedDate.HasValue?Model.CreatedDate.Value.ToString("yyyy.MM.dd"):"") </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Caching.GetValue("Customer.Information")</div>
+                                    <div class="profile-info-value text-left"> @Html.Raw(Model.Description) </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="profile-user-info profile-user-info-striped">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Caching.GetValue("Tenant.ContactName")</div>
+                                    <div class="profile-info-value text-left"> @Html.Raw(Model.FullName) </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Caching.GetValue("Customer.ContactPhone")</div>
+                                    <div class="profile-info-value text-left"><span class="skype_c2c_print_container notranslate">@Html.Raw(Model.ContactPhone)</span></div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Caching.GetValue("Tenant.MobilePhone")</div>
+                                    <div class="profile-info-value text-left">@Html.Raw(Model.MobilePhone)</div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Caching.GetValue("Customer.Address")</div>
+                                    <div class="profile-info-value text-left">@Html.Raw(Model.Address)</div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="align-right">
+                                <div class="wr_btn_action">
+                                    <input type="button" value="@Caching.GetValue("Global.Back")" class="back_big">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end box table content-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- PAGE CONTENT ENDS-->
+        <!-- /.row-->
+    </div>
+    <!-- /.page-content -->
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.back_big').click(function () {
+                document.location = "/Admin/Customer";
+                return false;
+            });
+        });
+    </script>
+}

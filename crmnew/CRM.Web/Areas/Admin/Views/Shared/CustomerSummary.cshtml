@@ -1,0 +1,19 @@
+﻿@using CRM.Admin
+@model CRM.Entities.Models.CustomerContactModel
+
+<a class="btn btn-app btn-sm btn-light" href="#">
+    <span class="line-height-1 bigger-170 blue"> 1,411 </span> <br>
+    <i class="menu-icon fa icon_group"></i> <span class="line-height-1 smaller-90"> @Caching.GetValue("Customer.Projects") </span>
+</a> <a class="btn btn-app btn-sm btn-yellow" href="#">
+    <span class="line-height-1 bigger-170"> 32 </span> <br>
+    <i class="menu-icon fa icon_piechart"></i> <span class="line-height-1 smaller-90"> @Caching.GetValue("Customer.Tickets") </span>
+</a> <a class="btn btn-app btn-sm btn-pink" href="#">
+    <span class="line-height-1 bigger-170"> @Model.TotalContact </span> <br>
+    <i class="menu-icon fa icon_tag"></i> <span class="line-height-1 smaller-90"> @Caching.GetValue("Customer.Contacts") </span>
+</a> <a class="btn btn-app btn-sm btn-grey" href="#">
+    <span class="line-height-1 bigger-170"> 23 </span> <br>
+    <i class="menu-icon fa icon_contacts_alt"></i> <span class="line-height-1 smaller-90"> @Caching.GetValue("Customer.Calendar") </span>
+</a> <a class="btn btn-app btn-sm btn-primary" href="#">
+    <span class="line-height-1 bigger-170"> 55 </span> <br>
+    <i class="menu-icon fa icon_documents"></i> <span class="line-height-1 smaller-90"> @Caching.GetValue("Customer.Billing") </span>
+</a>

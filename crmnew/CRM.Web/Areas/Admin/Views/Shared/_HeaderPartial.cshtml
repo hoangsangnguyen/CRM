@@ -1,0 +1,300 @@
+﻿@using CRM.Admin.Models
+@using System.Web.Routing;
+@{
+    UserInfo userinFo = System.Web.HttpContext.Current.Session["UserInfo"] as UserInfo;
+}
+<div class="navbar-container" id="navbar-container">
+    <!--Show menu responsive moblie mode -->
+    <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+        <span class="sr-only">Toggle sidebar</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <!--Logo Show here -->    
+    @{Html.RenderAction("_GetLogoTenant", "Common", new { area = "Admin" });}
+
+    <div class="navbar-buttons navbar-header pull-right" role="navigation">
+        <ul class="nav multi-nav">
+            <li class="grey">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <i class="multi-icon fa icon_menu-square_alt"></i>
+                    <span class="badge badge-grey">4</span>
+                </a>
+                <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                    <li class="dropdown-header"><i class="multi-icon fa icon_check_alt"></i> 4 Tasks to complete </li>
+                    <li>
+                        <a href="#">
+                            <div class="clearfix"> <span class="pull-left">Software Update</span> <span class="pull-right">65%</span> </div>
+                            <div class="progress progress-mini">
+                                <div style="width:65%" class="progress-bar"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="clearfix"> <span class="pull-left">Hardware Upgrade</span> <span class="pull-right">35%</span> </div>
+                            <div class="progress progress-mini">
+                                <div style="width:35%" class="progress-bar progress-bar-danger"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="clearfix"> <span class="pull-left">Unit Testing</span> <span class="pull-right">15%</span> </div>
+                            <div class="progress progress-mini">
+                                <div style="width:15%" class="progress-bar progress-bar-warning"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="clearfix"> <span class="pull-left">Bug Fixes</span> <span class="pull-right">90%</span> </div>
+                            <div class="progress progress-mini progress-striped active">
+                                <div style="width:90%" class="progress-bar progress-bar-success"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="dropdown-footer"> <a href="#"> See tasks with details <i class="multi-icon fa arrow_right_alt"></i> </a> </li>
+                </ul>
+            </li>
+
+            <li class="purple">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <i class="multi-icon fa icon_chat icon-animated-bell"></i>
+                    <span class="badge badge-important">8</span>
+                </a>
+                <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+                    <li class="dropdown-header"> <i class="multi-icon fa icon_error-triangle "></i> 8 Notifications </li>
+                    <li>
+                        <a href="#">
+                            <div class="clearfix"> <span class="pull-left"> <i class="btn btn-xs no-hover btn-pink fa icon_comment"></i> New Comments </span> <span class="pull-right badge badge-info">+12</span> </div>
+                        </a>
+                    </li>
+                    <li> <a href="#"> <i class="btn btn-xs btn-primary fa icon_profile"></i> Bob just signed up as an editor ... </a> </li>
+                    <li>
+                        <a href="#">
+                            <div class="clearfix"> <span class="pull-left"> <i class="btn btn-xs no-hover btn-success fa  icon_cart"></i> New Orders </span> <span class="pull-right badge badge-success">+8</span> </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="clearfix"> <span class="pull-left"> <i class="btn btn-xs no-hover btn-info fa  social_twitter "></i> Followers </span> <span class="pull-right badge badge-info">+11</span> </div>
+                        </a>
+                    </li>
+                    <li class="dropdown-footer"> <a href="#"> See all notifications <i class="multi-icon fa arrow_right_alt"></i> </a> </li>
+                </ul>
+            </li>
+
+            <li class="green">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <i class="multi-icon fa icon_mail icon-animated-vertical"></i>
+                    <span class="badge badge-success">5</span>
+                </a>
+                <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                    <li class="dropdown-header"> <i class="multi-icon fa icon_mail"></i> 5 Messages </li>
+                    <li style="position: relative;" class="dropdown-content multi-scroll">
+                        <div style="display: none;" class="scroll-track">
+                            <div class="scroll-bar"></div>
+                        </div>
+                        <div style="max-height: 200px;" class="scroll-content">
+                            <ul class="dropdown-menu dropdown-navbar">
+                                <li> <a href="#"> <img src="~/images/avatar.png" class="msg-photo" alt="Alex's Avatar"> <span class="msg-body"> <span class="msg-title"> <span class="blue">Alex:</span> Ciao sociis natoque penatibus et auctor ... </span> <span class="msg-time"> <i class="multi-icon fa icon_clock "></i> <span>a moment ago</span> </span> </span> </a> </li>
+                                <li> <a href="#"> <img src="~/images/avatar3.png" class="msg-photo" alt="Susan's Avatar"> <span class="msg-body"> <span class="msg-title"> <span class="blue">Susan:</span> Vestibulum id ligula porta felis euismod ... </span> <span class="msg-time"> <i class="multi-icon fa icon_clock "></i> <span>20 minutes ago</span> </span> </span> </a> </li>
+                                <li> <a href="#"> <img src="~/images/avatar4.png" class="msg-photo" alt="Bob's Avatar"> <span class="msg-body"> <span class="msg-title"> <span class="blue">Bob:</span> Nullam quis risus eget urna mollis ornare ... </span> <span class="msg-time"> <i class="multi-icon fa icon_clock "></i> <span>3:15 pm</span> </span> </span> </a> </li>
+                                <li> <a href="#"> <img src="~/images/avatar2.png" class="msg-photo" alt="Kate's Avatar"> <span class="msg-body"> <span class="msg-title"> <span class="blue">Kate:</span> Ciao sociis natoque eget urna mollis ornare ... </span> <span class="msg-time"> <i class="multi-icon fa icon_clock "></i> <span>1:33 pm</span> </span> </span> </a> </li>
+                                <li> <a href="#"> <img src="~/images/avatar5.png" class="msg-photo" alt="Fred's Avatar"> <span class="msg-body"> <span class="msg-title"> <span class="blue">Fred:</span> Vestibulum id penatibus et auctor  ... </span> <span class="msg-time"> <i class="multi-icon fa icon_clock "></i> <span>10:09 am</span> </span> </span> </a> </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown-footer"> <a href="#"> See all messages <i class="multi-icon fa arrow_right_alt "></i> </a> </li>
+                </ul>
+            </li>
+
+            <li class="light-blue">
+                <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                    @*<img class="nav-user-photo" src="~/images/avarta1.jpg" alt="Jason's Photo">*@
+                    @if (!string.IsNullOrEmpty(@userinFo.Image))
+                    {
+                        <img class="nav-user-photo" src="@Url.Content("~/images/avatar/" + @userinFo.Image)" alt="@userinFo.UserName" />
+                    }
+                    else
+                    {
+                        <img class="nav-user-photo" src="@Url.Content("~/images/No_image_available_no_border.png")" alt="@userinFo.UserName" />
+                    }
+
+                    <span class="user-info">
+                        <small>Welcome,</small> @userinFo.UserName
+                    </span>
+                    <i class="multi-icon fa arrow_triangle-down"></i>
+                </a>
+                <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                    <li> <a href="@Url.Action("Edit", "User", new { id=userinFo.ID})"> <i class="multi-icon fa icon_cog"></i> Edit profile </a> </li>
+                    <li> <a href="javascript:void(0)" onclick="showPopupChange(@userinFo.ID)"> <i class="multi-icon fa icon_refresh"></i> Change password </a> </li>
+                    <li class="divider"></li>
+                    <li> <a href="@Url.Action("LogOff", "Login", new { area = "Common" })"> <i class="multi-icon fa icon_lock-open_alt"></i> Logout </a> </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/Multiorg_kendo_script")
+<script type="text/javascript" src="~/Areas/Admin/Scripts/kendo.common.js"></script>
+<link href="~/Content/kendo/2014.1.528/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2014.1.528/kendo.silver.min.css" rel="stylesheet" />
+<link href="~/Content/css.edit.css" rel="stylesheet" />
+
+<script type="text/javascript" src="~/Scripts/jquery.common.js"></script>
+
+<style type="text/css">
+    /*css popup change pass*/
+    .dialogsShow {
+    }
+
+    .wr_bottom_popup_s {
+    }
+
+    .modal_1 {
+        margin-top: 0 !important;
+    }
+
+    #modal h4 {
+        text-align: left;
+    }
+
+    .wr_btn_pp_1 {
+        margin-bottom: 5px;
+        text-align: left;
+    }
+
+    .input_popup_1 {
+        width: 98%;
+    }
+
+    .wr_btn_pp_1 span {
+        color: red;
+    }
+</style>
+<script type="text/x-kendo-template" id="changepass-confirmation">
+    <div id="modal" class="modal_1">
+        <h4>Please comfirm and input new password</h4>
+        <div class="dialogsShow">
+            <div class="wr_bottom_popup_s_1">
+                <section class="wr_btn_pp_1">
+                    Old Password
+                </section>
+                <section class="wr_btn_pp_1">
+                    <input class="input_popup_1" type="password" value="" id="iOldPass">
+                    <span id="msgOldPass"></span>
+                </section>
+            </div>
+            <div class="wr_bottom_popup_s_1">
+                <section class="wr_btn_pp_1">
+                    New Password
+                </section>
+                <section class="wr_btn_pp_1">
+                    <input class="input_popup_1" type="password" value="" id="iNewPassword">
+                    <span id="msgNewPassword"></span>
+                </section>
+            </div>
+            <div class="wr_bottom_popup_s_1">
+                <section class="wr_btn_pp_1">
+                    Comfirm Password
+                </section>
+                <section class="wr_btn_pp_1">
+                    <input class="input_popup_1" type="password" value="" id="iComfirmPassword">
+                    <span id="msgComfirmPassword"></span>
+                </section>
+            </div>
+            <div class="wr_bottom_popup_s_1 mt30">
+                <section class="input_popup_1">
+                    <div class="wr_btn_action">
+                        <button class="save_big changepass-confirm" type="button">Change</button>
+                    </div>
+                    <div class="wr_btn_action">
+                        <button class="cancel_big changepass-cancel" type="button">Cancel</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="show_massage" style="display:none; text-align:left; color:red;">
+            <section class="wr_btn_pp_massage">
+                @*wr_btn_pp*@
+                <br />
+                <div class="wr_btn_action">
+                    <button class="Cancel-changepass-cancel cancel_big" type="button">Cancel</button>
+                </div>
+            </section>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    //validate text
+    function validate() {
+        $("#msgOldPass").find('span').remove();
+        $("#msgNewPassword").find('span').remove();
+        $("#msgComfirmPassword").find('span').remove();
+
+        if ($("#iOldPass").val() == '') {
+            $("#msgOldPass").append('<span>* Required</span>');
+            $("#iOldPass").focus();
+            return false;
+        }
+        if ($("#iNewPassword").val() == '') {
+            $("#msgNewPassword").append('<span >* Required</span>');
+            $("#iNewPassword").focus();
+            return false;
+        }
+
+        if ($("#iNewPassword").val() != $("#iComfirmPassword").val()) {
+            $("#msgComfirmPassword").append('<span >* Confirm Password not matching</span>');
+            $("#iComfirmPassword").focus();
+            return false;
+        }
+        return true;
+    }
+    //show popup change password
+    function showPopupChange(id) {
+        var siteUrl = "/admin/user/changePass";
+        var dialog = new CRMDialog("modal-mask");
+        var kendoWindow = dialog.showDialog("Change password", $("#changepass-confirmation").html(), 400, 320);
+        kendoWindow
+            .find(".changepass-confirm,.changepass-cancel,.Cancel-changepass-cancel")
+               .click(function () {
+                   if ($(this).hasClass("changepass-confirm")) {
+                       if (!validate()) return false;
+                       $.ajax({
+                           url: siteUrl,
+                           type: "POST",
+                           data: { id: id, user: $('input[name="Username"]').val(), passOld: $("#iOldPass").val(), passNew: $("#iNewPassword").val() },
+                           success: function (result) {
+                               if (result.Status != null && result.Status == 0) {
+                                   window.close()
+                                   kendoWindow.data("kendoWindow").close();
+                               }
+                               if (result.Message != null) {
+                                   $(".show_massage .wr_btn_pp_massage span").remove();
+                                   $(".show_massage .wr_btn_pp_massage").prepend("<span>" + result.Message + "</span>");
+                                   $(".show_massage").show();
+                                   $(".dialogsShow").hide();
+
+                                   return false;
+                               }
+                           }
+                       });
+                   }
+                   else if ($(this).hasClass("changepass-cancel")) {
+                       kendoWindow.data("kendoWindow").close();
+                   }
+                   else if ($(this).hasClass("Cancel-changepass-cancel")) {
+                       $(".show_massage").hide();
+                       $(".dialogsShow").show();
+                   }
+
+               })
+               .end();
+    }
+</script>
+

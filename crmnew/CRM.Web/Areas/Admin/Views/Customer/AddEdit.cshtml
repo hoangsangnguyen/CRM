@@ -1,0 +1,282 @@
+﻿@using CRM.Admin
+@using Kendo.Mvc.UI
+@using CRM.Admin.Models
+@using CRM.Entities.Models
+@model CRM.Entities.Models.CustomerContactModel
+@{
+    ViewBag.Title = "AddEdit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    UserInfo userInfo = System.Web.HttpContext.Current.Session["UserInfo"] as UserInfo;
+    string path="/Tenants/"+userInfo.TenantAlias+"/";
+    string urlImage = "";
+    if(Model.CustomerId>0)
+    {
+        urlImage = Model.CustomerLogo == string.Empty ? path + "default.png" : path + Model.CustomerLogo;    
+    }
+    else
+    {
+        urlImage = path + "default.png";
+    }
+}
+
+<div id="breadcrumbs" class="breadcrumbs">
+    <script type="text/javascript">
+        try { multi.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+    <ul class="breadcrumb">
+        <li><i class="multi-icon fa fa-home icon_house"></i></li>
+        <li><a href="#">@Caching.GetValue("Global.Home")</a></li>
+        <li><a href="#" title="">@Caching.GetValue("Customer.ManageCustomer")</a></li>
+        <li class="active">@Caching.GetValue("Customer.Customer")</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <div id="nav-search" class="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" autocomplete="off" id="nav-search-input" class="nav-search-input" placeholder="Search ...">
+                <i class="multi-icon fa icon_search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <ul class="btn-top pull-right">
+            <li><a href="#" class="save_big">@Caching.GetValue("Global.Save")</a></li>
+            <li><a href="#" class="cancel_big">@Caching.GetValue("Global.Cancel")</a></li>
+        </ul>
+        <h1>
+            @Caching.GetValue("Customer.Customer")
+            <!--<small> <i class="multi-icon fa arrow_triangle-right"></i> bootstrap grid sizing </small>-->
+        </h1>
+
+    </div>
+    <!-- /.page-header -->
+    <!--  PAGE CONTENT BEGINS -->
+
+        <div class="center mt60">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="frmCustomer" action="">
+                        @Html.AntiForgeryToken()
+                        <div class="user-profile row">
+                            <div class="col-xs-12 col-sm-4 center">
+                                <div>
+                                    <span class="profile-picture"><img alt="@Html.Raw(Model.CustomerName)" src="@urlImage" class="editable img-responsive  editable-empty" id="imgUploaded"></span>
+                                    <div class="space-12"></div>
+                                </div>
+                                <div class="space-6"></div>
+                                <div class="profile-user-info profile-user-info-striped">
+
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name w100">@Caching.GetValue("Global.Avatar")</div>
+                                        <div class="profile-info-value text-left">
+                                            @(Html.Kendo().Upload()
+                                            .Multiple(false)
+                                    .Name("file")
+                                            .Async(a => a
+                                                .Save("SaveLogoUpload", "customer")
+                                                .Remove("RemoveLogoUpload", "customer")
+                                                .AutoUpload(true)
+                                            )
+                                    .Events(events => events
+                                            .Select("onSelect")
+                                            .Success("onSuccess")
+                                        )
+                                            )
+                                            <input type="hidden" name="OldCustomerLogo" id="OldCustomerLogo" value="@Model.CustomerLogo" />
+                                            <input type="hidden" name="CustomerLogo" id="CustomerLogo" value="@Model.CustomerLogo" />
+                                            <input type="hidden" name="CustomerId" id="CustomerId" value="@Model.CustomerId" />
+                                            <input type="hidden" name="ContactId" id="ContactId" value="@Model.ContactId" />
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name w100">@Caching.GetValue("Global.Url")</div>
+                                        <div class="profile-info-value text-left">
+                                            <input type="text" name="Website" id="Website" value="@Html.Raw(Model.Website)" class="edit_input">
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name w100"><i class="middle multi-icon fa social_twitter_circle bigger-190 light-blue"></i></div>
+                                        <div class="profile-info-value text-left">
+                                            <input type="text" id="TwitterURL" name="TwitterURL" value="@Html.Raw(Model.TwitterURL)" class="edit_input">
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name w100"><i class="middle multi-icon fa social_facebook_circle  bigger-190 blue"></i></div>
+                                        <div class="profile-info-value text-left">
+                                            <input type="text" name="FacebookURL" id="FacebookURL" value="@Html.Raw(Model.FacebookURL)" class="edit_input">
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name w100"> <i class="middle multi-icon fa social_linkedin_circle  bigger-190 blue"></i></div>
+                                        <div class="profile-info-value text-left ">
+                                            <input type="text" id="LinkedURL" name="LinkedURL" value="@Html.Raw(Model.LinkedURL)" class="edit_input">
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name w100"> <i class="middle multi-icon fa social_googleplus_circle bigger-190 red"></i></div>
+                                        <div class="profile-info-value text-left">
+                                            <input type="text" id="GoogleplusURL" name="GoogleplusURL" value="@Html.Raw(Model.GoogleplusURL)" class="edit_input">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-6"></div>
+
+                            </div>
+                            <div class="col-xs-12 col-sm-8">
+                                <div class="profile-user-info profile-user-info-striped">
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name"> @Caching.GetValue("Tenant.TenantName") <span class="bigger-120 red">*</span></div>
+                                        <div class="profile-info-value text-left bolder">
+                                            <input type="text" id="CustomerName" name="CustomerName" value="@Html.Raw(Model.CustomerName)" class="edit_input bolder">
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name"> @Caching.GetValue("Global.Login.lblMail") <span class="bigger-120 red">*</span></div>
+                                        <div class="profile-info-value text-left bolder">
+                                            <input type="text" id="Email" name="Email" value="@Html.Raw(Model.Email)" class="edit_input bolder">
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name"> @Caching.GetValue("Customer.PostalAddress")</div>
+                                        <div class="profile-info-value text-left">
+                                            <input type="text" id="PostedAddress" name="PostedAddress" value="@Html.Raw(Model.PostedAddress)" class="edit_input">
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name"> @Caching.GetValue("Customer.VisitingAddress") </div>
+                                        <div class="profile-info-value text-left">
+                                            <input type="text" id="VisitingAddress" name="VisitingAddress" value="@Html.Raw(Model.VisitingAddress)" class="edit_input">
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">@Caching.GetValue("Tenant.CountryName")</div>
+                                        <div class="profile-info-value text-left">
+                                            <select id="CountryId" name="CountryId" class="edit_input">
+                                                <option value="0">Choose one item...</option>
+                                                @foreach (crm_Countries item in Model.ListCountry)
+                                                {
+                                                    <option value="@item.Id" @if (Model.CountryId == item.Id) { @Html.Raw("selected='selected'") }>@item.CountryName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">@Caching.GetValue("Tenant.Fax")</div>
+                                        <div class="profile-info-value text-left">
+                                            <input type="text" name="Fax" id="Fax" value="@Html.Raw(Model.Fax)" class="edit_input">
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">@Caching.GetValue("Tenant.OrgNumber")</div>
+                                        <div class="profile-info-value text-left">
+                                            <input type="text" id="OrgNumber" name="OrgNumber" value="@Model.OrgNumber" class="edit_input">
+                                        </div>
+                                    </div>
+                                    @if(Model.CustomerId>0)
+                                    { 
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">@Caching.GetValue("Tenant.CreatedDate")</div>
+                                        <div class="profile-info-value text-left">
+                                            @if(Model.CreatedDate.HasValue){@Model.CreatedDate.Value.ToString("yyyy.MM.dd")}
+                                        </div>
+                                    </div>
+                                    }
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">@Caching.GetValue("Customer.Information")</div>
+                                        <div class="profile-info-value text-left">
+                                            <textarea class="form-control no-border" id="Description" name="Description">@Html.Raw(Model.Description)</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-6"></div>
+                                <div class="profile-user-info profile-user-info-striped">
+                                    <input type="hidden" name="ContactId" id="ContactId" />
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">@Caching.GetValue("Customer.Firstname")</div>
+                                        <div class="profile-info-value text-left">
+                                            <input type="text" id="FirstName" name="FirstName" value="@Html.Raw(Model.FirstName)" class="edit_input">
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">@Caching.GetValue("Customer.Lastname")</div>
+                                        <div class="profile-info-value text-left">
+                                            <input type="text" name="LastName" id="LastName" value="@Html.Raw(Model.LastName)" class="edit_input">
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">@Caching.GetValue("Customer.ContactPhone")</div>
+                                        <div class="profile-info-value text-left">
+                                            <input type="text" id="ContactPhone" name="ContactPhone" value="@Html.Raw(Model.ContactPhone)" class="edit_input">
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">@Caching.GetValue("Tenant.MobilePhone")</div>
+                                        <div class="profile-info-value text-left">
+                                            <input type="text" name="MobilePhone" id="MobilePhone" value="@Html.Raw(Model.MobilePhone)" class="edit_input">
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name"> @Caching.GetValue("Customer.Address")</div>
+                                        <div class="profile-info-value text-left ">
+                                            <input type="text" id="Address" name="Address" value="@Html.Raw(Model.Address)" class="edit_input">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-6"></div>
+                                <div class="align-right">
+                                    <div class="wr_btn_action">
+                                        <input type="button" value="@Caching.GetValue("Global.Cancel")" class="cancel_big">
+                                    </div>
+                                    <div class="wr_btn_action">
+                                        <input type="button" value="@Caching.GetValue("Global.Save")" class="save_big">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end box table content-->
+                        </div>
+                    </form>
+    </div>
+    </div>
+    </div>
+    <!-- PAGE CONTENT ENDS-->
+    <!-- /.row-->
+</div>
+<!-- /.page-content -->
+
+
+@section scripts{
+    <script type="text/javascript">
+        // only upload image file
+        function onSelect(e) {
+            $.each(e.files, function (index, value) {
+                if (value.extension.toLowerCase() != ".png" && value.extension.toLowerCase() != ".jpg") {
+                    alert("@Caching.GetValue("Customer.RequireRightExtension")");
+                    return;
+                }
+            });
+        };
+
+        // upload success
+        function onSuccess(e) {
+
+            var responseTxt = jQuery.parseJSON(e.XMLHttpRequest.responseText);
+
+            //var status = responseTxt.Status;
+            var srcValue = responseTxt.PictureUrl;
+
+            if (srcValue != null) {
+                $("#imgLogo").hide();
+                $("#imgUploaded").attr('src', srcValue).show();
+                $('#CustomerLogo').val(srcValue.FileName);
+            } else {
+                //$("#imgUploaded").attr('src', srcValue);
+                //$("#imgLogo").hide();
+            }
+
+        }
+    </script>
+    <script src="~/Areas/Admin/Scripts/customer.js"></script>
+}

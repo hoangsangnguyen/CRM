@@ -1,0 +1,30 @@
+﻿@model CRM.Admin.Models.UsersModel
+@using Kendo.Mvc.UI;
+
+@if (Model != null)
+{
+    <div class="profile-info-row">
+        <div class="profile-info-name">Name</div>
+        <div class="profile-info-value text-left">
+            @Html.DisplayFor(x => x.FullName)
+        </div>
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name">@Html.DisplayNameFor(x => x.Phone)</div>
+        <div class="profile-info-value text-left">
+            @Html.DisplayFor(x => x.Phone)
+        </div>
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name">@Html.DisplayNameFor(x => x.Mobile)</div>
+        <div class="profile-info-value text-left">
+            @Html.DisplayFor(x => x.Mobile)
+        </div>
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name">@Html.DisplayNameFor(x => x.Email)</div>
+        <div class="profile-info-value text-left">
+            @Html.DisplayFor(x => x.Email)
+        </div>
+    </div>
+}

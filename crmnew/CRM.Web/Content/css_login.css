@@ -1,0 +1,98 @@
+@font-face {
+    font-family: "PT Sans";
+    font-style: normal;
+    font-weight: 400;
+    src: local("PT Sans"), local("PTSans-Regular"), url("http://themes.googleusercontent.com/static/fonts/ptsans/v6/7YGmE4Ls5b94ct65u07hVQLUuEpTyoUstqEm5AMlJo4.woff") format("woff");
+}
+@font-face {
+    font-family: "PT Sans";
+    font-style: normal;
+    font-weight: 700;
+    src: local("PT Sans Bold"), local("PTSans-Bold"), url("http://themes.googleusercontent.com/static/fonts/ptsans/v6/0XxGQsSc1g4rdRdjJKZrNL3hpw3pgy2gAi-Ip7WPMi0.woff") format("woff");
+}
+.w100{ width:100px!important}
+.mt60 { margin-top:60px;}
+.mb0 { margin-bottom:0px!important}
+.mb15 { margin-bottom:15px!important}
+.mt30 { margin-top:30px;}
+h2{color: #2d82c1;
+    font-size: 30px;
+    font-weight: lighter;
+    margin: 0px;
+    padding: 0;}
+h3{color: #2d82c1;
+    font-size: 24px;
+    font-weight: lighter;
+    margin: 0px;
+    padding: 0;}
+h4{color: #2d82c1;
+    font-size: 18px;
+    font-weight: lighter;
+    margin: 0px;
+    padding: 5px 0px;}
+hr {
+    margin:0!important;
+}
+p {
+    padding-top:10px;
+}
+label {
+    cursor:default;
+}
+/*New style login*/
+.logo_big a{ float:left; min-height:90px; text-indent:-99999px;}
+.footer{ padding-top:15px; min-height:40px;; font-size:12px; font-family:Verdana, Geneva, sans-serif}
+.footer a{ color:#08c;}
+.footer a:hover { color:#85ccf0; text-decoration:none}
+.footer .footer-inner_mul { left:0!important;}
+.main-content_login{ margin-left:0px!important; }
+.footer .footer-inner .footer-content { left:0!important; right:0!important; bottom:0!important; border:none!important; background-color:#414142;}
+.footer_left { float:left; color:#fff; padding-left:15px;}
+.footer_right { float:right; color:#fff; padding-right:15px;}
+
+.color-baclk{ color:#4b4b4b!important; font-size:18px;}
+.navbar {
+ background: none repeat scroll 0 0 #85ccf0;
+    border-radius: 0;
+    border-width: 0;
+    box-shadow: none;
+    margin: 0;
+    min-height: 90px;
+    padding-left: 0;
+    padding-right: 0;
+}
+.breadcrumbs {
+    background-color: #f1e3e3;
+    border-bottom: 1px solid #dedbdb;
+    line-height: 40px;
+    min-height: 41px;
+    padding: 0 12px 0 0;
+    position: relative;
+    z-index: auto;
+	margin-bottom:40px;
+}
+
+.main-container { background-color:#FFFFFF; padding-bottom:40px;}
+
+.tabbable.custom-tabs>.tab-content h4.title_login { color:#2b60a7; font-size:24px; font-weight:normal}
+
+.btn_login { background-color:#2b60a7; line-height:36px; border-bottom:3px solid #390f3d; padding:10px 40px; font-size:16px; color:#bac3df;text-shadow: 0 1px 1px #000;-ms-box-sizing:border-box; -moz-box-sizing:border-box;	-webkit-box-sizing:border-box;	box-sizing:border-box; -moz-transition-duration:.5s; -o-transition-duration:.5s; -webkit-transition-duration:.5s; transition-duration:.5s;
+}
+.btn_login:hover { text-decoration:none; color:#FFFFFF; -o-box-shadow:inset 0 0 0 80px rgba(0,0,0,.5);	-ms-box-shadow:inset 0 0 0 80px rgba(0,0,0,.5);	-moz-box-shadow:inset 0 0 0 80px rgba(0,0,0,.5);	-webkit-box-shadow:inset 0 0 0 80px rgba(0,0,0,.5);	box-shadow:inset 0 0 0 80px rgba(0,0,0,.5);}
+
+.error{ color:red; clear:both; line-height:24px; font-size:12px; padding:0; }
+
+.wr_capcha {clear:both; margin-top:10px; margin-bottom:5px; float:left; width:100%;}
+.wr_capcha .txt_capcha{ min-width:60px!important; background-color: #fff!important;    border: 1px solid #D8D8D8 !important;    color: #000!important;    float: left!important;    font-size: 18px!important;    height: 35px!important;    margin-right: 15px!important;    padding: 0 5px!important;    text-align: center;    width: 165px!important; box-shadow: 0 2px 3px 0 #e6e6e6 inset;}
+.wr_capcha .captchaImage{border: 1px solid #D4D4D4;    display: block;    float: left;    height: 35px;    margin-right: 5px;    width: 140px;}
+.wr_capcha .refreshCaptcha{ background: url("../images/refresh.png") no-repeat scroll left top rgba(0, 0, 0, 0); float: left;    height: 25px;    margin: 10px 5px 5px;    overflow: hidden;    text-indent: -9999em;    width: 32px;}
+
+.wr_text_FAQ{ width:100%; float:left; clear:both; margin:20px 0px 5px; font-size:12px; color:#656565;}
+
+/*New edit social*/
+.btn_login_input { background-color:#2b60a7; line-height:21px; border:none; border-bottom:3px solid #390f3d; padding:10px 40px; font-size:16px; color:#bac3df;text-shadow: 0 1px 1px #000;-ms-box-sizing:border-box; -moz-box-sizing:border-box;	-webkit-box-sizing:border-box;	box-sizing:border-box; -moz-transition-duration:.5s; -o-transition-duration:.5s; -webkit-transition-duration:.5s; transition-duration:.5s;
+}
+.btn_login_input:hover { text-decoration:none; color:#FFFFFF; -o-box-shadow:inset 0 0 0 80px rgba(0,0,0,.5);	-ms-box-shadow:inset 0 0 0 80px rgba(0,0,0,.5);	-moz-box-shadow:inset 0 0 0 80px rgba(0,0,0,.5);	-webkit-box-shadow:inset 0 0 0 80px rgba(0,0,0,.5);	box-shadow:inset 0 0 0 80px rgba(0,0,0,.5);}
+
+.btn_so {border:none; background-color:transparent; color:#FFF; font-size:20px; padding:0; margin:0; min-height:30px; margin:0 auto; width:100%;}
+.tabbable.custom-tabs > .tab-content .socials a:hover { cursor:default!important}

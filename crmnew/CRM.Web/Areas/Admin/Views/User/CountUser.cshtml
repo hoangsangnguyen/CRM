@@ -1,0 +1,40 @@
+﻿@model List<int>
+@{
+    CRM.Admin.Models.UserInfo userInfo = System.Web.HttpContext.Current.Session["UserInfo"] as CRM.Admin.Models.UserInfo;
+    bool Role = false;
+    if (userInfo != null)
+    {
+        //check role
+        int count = 0;
+        foreach (int bitMask in userInfo.BitMask)
+        {
+            if (bitMask == (int)CRM.Core.UserGroupEnum.NormalUser)
+            {
+                Role = true;
+                count++;
+            }
+        }
+        if (count != userInfo.BitMask.Count && Role)
+        {
+            Role = false;
+        }
+    }
+
+}
+@if (!Role)
+{
+    if (Model[0] != 0)
+    {
+        <a href="@Url.Action("Index", "User", new { area = "Admin", id = Model[0] })" class="btn btn-app btn-sm btn-light">
+            <span class="line-height-1 bigger-170 blue"> @Model[1].ToString("#,###")  </span> <br>
+            <i class="menu-icon fa icon_group"></i> <span class="line-height-1 smaller-90"> Users </span>
+        </a>
+    }
+    else
+    {
+        <a href="@Url.Action("Index", "User", new { area = "Admin"})" class="btn btn-app btn-sm btn-light">
+            <span class="line-height-1 bigger-170 blue"> @Model[1].ToString("#,###")  </span> <br>
+            <i class="menu-icon fa icon_group"></i> <span class="line-height-1 smaller-90"> Users </span>
+        </a>
+    }
+}

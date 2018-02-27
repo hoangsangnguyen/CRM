@@ -1,0 +1,53 @@
+﻿/*--------- THUYHK ---------- */
+.txt_align_c{text-align:center;}
+#grid img{max-height:42px; width:auto}
+.row{margin: 0; padding:0; margin-top:30px}
+.mesValidate{ float: right; margin: -22px 1% 0 0; height: 22px; color: red; padding-right: 5px; line-height: 22px;   position: relative;   font-size: 12px;   font-weight: normal;   }
+btn-app.btn-primary.active{
+	background:#ff6767 !important;
+	background-image:-webkit-linear-gradient(top, #ff6767 0, #db0f10 100%) !important;
+	background-image:linear-gradient(to bottom, #ff6767 0, #db0f10 100%) !important;
+	background-repeat:repeat-x !important;
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffe6868', endColorstr='#ffdb0f10', GradientType=0) !important
+}
+
+
+/*------------DAONV-------------*/
+@media only screen and (max-width:1090px) {
+.table.table-bordered > thead > tr > th{ font-size:14px!important;}
+}
+
+@media only screen and (max-width:850px) {
+.table.table-bordered > thead > tr > th{ font-size:12px!important;}
+}
+/*-------------RILK------------*/
+.sudo_big {background: url(images/icon_big.png) no-repeat 0 -418px scroll transparent; padding-left:35px; float:left;font-size:18px; color:#2d82c1; font-weight:bold; line-height:25px;-moz-transition:all 0.4s ease; -webkit-transition:all 0.4s ease;  -o-transition:all 0.4s ease; transition:all 0.4s ease;  border:none; min-height:29px;}
+.sudo_big:hover {background: url(images/icon_big.png) no-repeat 0 -450px scroll transparent; color:#1f74b2!important; text-decoration:none;}
+
+.ok_big {background: url(images/icon_big.png) no-repeat 0 -482px scroll transparent; padding-left:35px; float:left;font-size:18px; color:#2d82c1; font-weight:bold; line-height:25px;-moz-transition:all 0.4s ease; -webkit-transition:all 0.4s ease;  -o-transition:all 0.4s ease; transition:all 0.4s ease;  border:none; min-height:29px;}
+.ok_big:hover {background: url(images/icon_big.png) no-repeat 0 -513px scroll transparent; color:#1f74b2!important; text-decoration:none;}
+
+.wr_btn_action {background: url(images/bg_btn.png) repeat-x left top scroll; border: 1px solid #ccc; border-radius: 3px; float:right; display:table-cell; margin-left: 10px; margin-bottom:10px; padding:2px 5px; width: auto;}
+.wr_btn_action:hover {background: url(images/bg_btn_hv.png) repeat-x left top scroll;}
+
+/*css popup*/
+.k-widget.k-window {
+    padding-top: 45px !important;
+}
+.k-window-titlebar {
+ color: #515967;
+ font-weight:bold;
+ height: 45px!important;
+ margin-top: -46px !important;
+ background-image: none, linear-gradient(to bottom,  rgba(188, 210, 251, 0.3) 0px, rgba(129, 166, 233, 0.4) 100%)!important;
+}
+.k-window-title {
+ font-weight:bold;
+ line-height:45px;
+ color: #6079A3;
+ text-align:left;
+
+}
+#modal h4 { color:#6079A3; padding-bottom:5px;}
+.mt20 { margin-top:20px;}
+.k-window-titlebar.k-header {padding:0!important;}

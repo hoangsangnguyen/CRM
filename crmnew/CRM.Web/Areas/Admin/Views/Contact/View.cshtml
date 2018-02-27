@@ -1,0 +1,227 @@
+﻿@model CRM.Admin.Models.ContactAddEditModel
+@using Kendo.Mvc.UI;
+@using CRM.Admin;
+@{
+    ViewBag.Title = Caching.GetValue("Contact.Edit");
+}
+
+@section styles
+{
+    @Styles.Render("~/Content/Multiorg_kendo_css")
+    <link href="~/Content/style.kendo.edit.css" rel="stylesheet" />
+    <link href="~/Content/css.edit.css" rel="stylesheet" />
+    <style type="text/css">
+        #imgLogo, #imgUploaded {
+            max-height: 180px;
+        }
+
+        .profile-info-row select {
+            width: 99%;
+            height: 24px;
+            border: 0;
+            padding: 2px 5px !important;
+        }
+    </style>
+}
+
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try { multi.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+    <ul class="breadcrumb">
+        <li><i class="multi-icon fa fa-home icon_house"></i></li>
+        <li><a href="#">@Caching.GetValue("Global.Home")</a></li>
+        <li><a title="" href="/admin/contact">@Caching.GetValue("Contact.Contact")</a></li>
+        <li class="active">@Caching.GetValue("Global.View")</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input placeholder="@Caching.GetValue("Global.Search")" class="nav-search-input" id="nav-search-input" autocomplete="off" type="text">
+                <i class="multi-icon fa icon_search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+<div class="page-content">
+    @*@using (Ajax.BeginForm("Edit","Contact", new  AjaxOptions{}))
+    {*@
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ContactId)
+        <div class="page-header">
+            <ul class="btn-top pull-right">
+                <li><a href="#" class="back_big" onclick="cancel();">@Caching.GetValue("Global.Back")</a></li>
+            </ul>
+            <h1>
+                @Model.FirstName  @Model.LastName
+                <!--<small> <i class="multi-icon fa arrow_triangle-right"></i> bootstrap grid sizing </small>-->
+            </h1>
+
+        </div>
+    <!-- /.page-header -->
+    <!--  PAGE CONTENT BEGINS -->
+    <div class="center mt60">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="user-profile row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="profile-user-info profile-user-info-striped">
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.LabelFor(model => model.Gender) </div>
+                                <div class="profile-info-value text-left bolder">@Html.Raw(Model.Gender)</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">@Caching.GetValue("Tenant.TenantName") <span class="bigger-120 red">*</span></div>
+                                <div class="profile-info-value text-left bolder">
+                                    @Html.Raw(Model.FirstName + " " + Model.LastName)
+
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.LabelFor(model => model.Email) <span class="bigger-120 red">*</span></div>
+                                <div class="profile-info-value text-left">
+                                    @Html.Raw(Model.Email)
+
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.LabelFor(model => model.ContactPhone)</div>
+                                <div class="profile-info-value text-left">
+                                    @Html.Raw(Model.ContactPhone)
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.LabelFor(model => model.Address) </div>
+                                <div class="profile-info-value text-left">
+                                    @Html.Raw(Model.Address)
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">@Html.LabelFor(model => model.Active)</div>
+                                <div class="profile-info-value text-left">
+                                    @Html.CheckBox("d", Model.Active, new { disabled = "disabled" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="space-6"></div>
+
+                        <div class="align-right">
+                            <div class="wr_btn_action">
+                                <input type="button" value="@Caching.GetValue("Global.Back")" class="back_big" onclick="cancel();">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end box table content-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PAGE CONTENT ENDS-->
+    <!-- /.row-->
+  @*  }*@
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/Multiorg_kendo_script")
+    <script>
+        // select image
+        function onSelect(e) {
+            $.each(e.files, function (index, value) {
+                checkImageUpload(value);
+            });
+        };
+
+        // only upload image file
+        function checkImageUpload(input) {
+            var blnValid = false;
+            var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
+            for (var j = 0; j < _validFileExtensions.length; j++) {
+                var sCurExtension = _validFileExtensions[j];
+                if (input.extension.toLowerCase() == sCurExtension.toLowerCase()) {
+                    blnValid = true;
+                }
+            }
+
+            if (!blnValid) {
+                alert("Sorry, " + input.name + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                return false;
+            }
+        }
+
+        // upload success
+        function onSuccess(e) {
+
+            var responseTxt = jQuery.parseJSON(e.XMLHttpRequest.responseText);
+
+            //var status = responseTxt.Status;
+            var srcValue = responseTxt.PictureUrl;
+
+            if (srcValue != null) {
+                $("#imgLogo").hide();
+                $("#imgUploaded").attr('src', srcValue).show();
+            } else {
+                //$("#imgUploaded").attr('src', srcValue);
+                //$("#imgLogo").hide();
+            }
+
+        }
+
+        //event when click remove file
+        function onRemove(e) {
+            //$(".k-upload-files.k-reset").remove();
+        }
+
+        // save logo new
+        function saveLogo() {
+            var tenantId = $('#TenantId').val();
+            var url = $('#Website').val();
+            var facebook = $('#FacebookURL').val();
+            var twitter = $('#TwitterURL').val();
+            var google = $('#GoogleplusURL').val();
+            var linked = $('#LinkedURL').val();
+
+            $.ajax({
+                type: 'GET',
+                url: '/Admin/Tenant/EditLogo',
+                data: { tenantId: tenantId, url: url, facebook: facebook, twitter: twitter, google: google, linked: linked },
+                success: function (data) {
+                    alert(data);
+                },
+                error: function () { }
+            });
+        }
+
+        // cancel save logo
+        function cancelSaveLogo() {
+            $("#imgUploaded").hide();
+            $("#imgLogo").show();
+        }
+
+        function cancel() {
+            var siteUrl = "/admin/contact/";
+            window.location = siteUrl;
+        }
+
+        // onchange in dropdownlist AssignedUser
+        function onChangeAssigned(dropdown) {
+            var location = dropdown.options[dropdown.selectedIndex].value;
+            if (location.length >0) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Admin/User/_GetInfoUser',
+                    data: { userId: location },
+                    success: function (data) {
+                        $("#showUser").html(data);
+                    },
+                    error: function () { }
+                });
+            }
+        }
+    </script>
+    @Scripts.Render("~/bundles/Multiorg_validate_script")
+}

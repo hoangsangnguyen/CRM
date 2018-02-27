@@ -1,0 +1,181 @@
+﻿@model CRM.Admin.Models.LoginModels
+@using CaptchaMvc.HtmlHelpers
+@using CRM.Admin
+@{
+    ViewBag.Title = "Log in";
+    var languagecode = TempData["LanguageCode"];
+
+}
+
+@Scripts.Render("~/bundles/Multiorg_kendo_script")
+<script type="text/javascript" src="~/Areas/Admin/Scripts/kendo.common.js"></script>
+<link href="~/Content/kendo/2014.1.528/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2014.1.528/kendo.silver.min.css" rel="stylesheet" />
+<link href="~/Content/css.edit.css" rel="stylesheet" />
+
+<script>
+    $(document).ready(function () {
+        var msg = "@TempData["Msg"]";
+        if (msg != "") {
+            ConfirmMessageBox(null, msg, function () { }, false);
+        }
+    });
+
+</script>
+<script>
+    @*var showcaptcha = "@TempData["ShowCaptcha"]";*@
+
+</script>
+
+<div class="row-fluid">
+    <div class="span10 offset1">
+        <div class="tabbable custom-tabs tabs-animated  flat flat-all hide-label-980 shadow track-url auto-scroll">
+            <ul class="nav nav-tabs">
+                <li class="active" id="tabLogin"><a href="#panel1" data-toggle="tab" class="active "><i class="icon_lock"></i>&nbsp;<span>@Caching.GetValue("Global.Login.lblLoginPanel")</span></a></li>
+                <li id="tabForget"><a href="#panel2" data-toggle="tab"><i class="icon_key"></i>&nbsp;<span>@Caching.GetValue("Global.Login.lblForgetPassword")</span></a></li>
+                <li><a href="#panel3" data-toggle="tab"><i class="icon_mail"></i>&nbsp;<span>@Caching.GetValue("Global.Login.lblContact")</span></a></li>
+            </ul>
+            <div class="tab-content ">
+                <div class="tab-pane active" id="panel1">
+                    <div class="row-fluid">
+                        <div class="span8">
+                            <h4 class="title_login"><i class="icon_profile color-baclk"></i>&nbsp;@Caching.GetValue("Global.Login.lblLogin")</h4>
+                            @using (Html.BeginForm("Logon", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+                            {
+
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                <label>@Caching.GetValue("Global.Login.lblUserName")</label>
+                                @Html.ValidationMessageFor(m => m.UserName)
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "input-block-level", id = "Global.Login.txtUserName", @value = Model != null ? Model.UserName : "" })
+
+                                <label>@Caching.GetValue("Global.Login.lblPassword")</label>
+                                @Html.ValidationMessageFor(m => m.Password)
+                                @Html.PasswordFor(m => m.Password, new { @class = "input-block-level", id="Global.Login.txtPassword" })
+                                <label>
+                                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "check_login" })
+                                    <label class="lbl">@Caching.GetValue("Global.Login.lblRemember")</label>
+
+                                </label>
+                                <section class="wr_capcha" id="wr_capcha">
+                                    @Html.TextBoxFor(m => m.Captcha, new { @class = "txt_capcha", placeholder = "Enter security code" })
+                                    <img id="CaptchaImageLogin" src="@Url.Action("GenerateCaptcha")" alt="" class="captchaImage">
+                                    <input type="hidden" value="0" name="MultipleParameterKey" id="MultipleParameterKey">
+                                    <input type="hidden" value="d" name="CaptchaDeText" id="CaptchaDeText">
+                                    <a id="FreshCaptchaLogin" class="refreshCaptcha" style="text-indent:-9999px; display:block; cursor:pointer;">@Caching.GetValue("Global.Login.lblRefresh")</a> <span class="error"></span>
+                                </section>
+                                <br />
+                                <input type="submit" value="@Caching.GetValue("Global.Login.btnLogin")" id="btnlogin" class="btn_login_input" />
+                            }
+
+                        </div>
+                        <div class="span4">
+                            <h4 class="title_login"><i class="social_dribbble color-baclk"></i>&nbsp;Social</h4>
+                            <div class="socials clearfix">
+                                @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = "Home" })
+
+                            </div>
+                        </div>
+                        <div class="wr_text_FAQ"> <span>* We use cookies to give you the best possible experience on our site. By continuing to use the site you agree to our use of cookies. <a href="#" title=""> Find out more </a></span> </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="panel2">
+                    <div class="row-fluid">
+                        <div class="span7">
+                            <h4 class="title_login"><i class="icon_profile color-baclk"></i>&nbsp;Forgot password</h4>
+                            <label>@Caching.GetValue("Global.Login.lblUserName")</label>
+                            <span class="error" id="errorTotal"></span>
+                            <input id="txtUserNameFG" class="input-block-level" type="text">
+                            <label>@Caching.GetValue("Global.Login.lblMail")</label>
+                            <span class="error" id="errorEmail"></span>
+                            <input id="txtEmailFG" class="input-block-level" type="text">
+                            <section class="wr_capcha" id="wr_capchafoget">
+                                <input type="text" value="" name="txtCaptchaForget" class="txt_capcha" placeholder="Enter security code" id="txtCaptchaForget" maxlength="6" autocomplete="off">
+                                <img src="@Url.Action("GenerateCaptcha")" id="CaptchaImageForget" alt="" class="captchaImage">
+                                <input type="hidden" value="0" name="MultipleParameterKey" id="MultipleParameterKey">
+                                <input type="hidden" value="d" name="CaptchaDeText" id="CaptchaDeText">
+                                <a id="FreshCaptchaForget" class="refreshCaptcha" style="text-indent:-9999px; display:block; cursor:pointer;">@Caching.GetValue("Global.Login.lblRefresh")</a> <span class="error"></span>
+                            </section>
+                            <br />
+                            <a style="cursor:pointer;" id="btn_SendEmailFG" class="btn_login">@Caching.GetValue("Global.Login.btnSendMail")</a>
+                        </div>
+                        <div class="span5">
+                            <h4 class="title_login"><i class="icon_info color-baclk"></i>&nbsp;@Caching.GetValue("Global.Login.lblNotice")</h4>
+                            <div>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <a href="#">Support</a></p>
+                                <ul>
+                                    <li>Quisque sit amet nibh.</li>
+                                    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>Aliquam molestie, nibhid imperdiet pellentesque</li>
+                                    <li>Ipsum tortor sagittis purus, non con vallis justo purus et nulla.</li>
+                                    <li>Proin ipsum felis, tincidunvt vhendrerit.</li>
+                                    <li>Interdum ipsum ad risus conubia, porttitor.</li>
+                                    <li>Vestibulum quam. Maecenas ornare congue lacus. Ut euismod imperdiet ipsum.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="panel3" class="tab-pane">
+                    <div class="row-fluid">
+                        <div class="span7">
+                            <h4 class="title_login"><i class="icon_mail color-baclk"></i>&nbsp;@Caching.GetValue("Global.Login.lblContact")</h4>
+                            <label>Name</label>
+                            <span class="error" id="errorContactTotal"></span>
+                            <input id="txtUserNameContact" class="input-block-level" type="text">
+                            <label>@Caching.GetValue("Global.Login.lblTitle")</label>
+                            <input id="txtTileContact" class="input-block-level" type="text">
+                            <label>@Caching.GetValue("Global.Login.lblContent")</label>
+                            <span class="error" id="errorContent"></span>
+                            <textarea id="txtContentContact" class="input-block-level" rows="5"></textarea>
+                            <br />
+                            <a style="cursor:pointer;" class="btn_login" id="btn_SendContact">@Caching.GetValue("Global.Login.btnSendContact")</a>
+                        </div>
+                        <div class="span5">
+                            <h4 class="title_login"><i class="icon_info color-baclk"></i>&nbsp;@Caching.GetValue("Global.Login.lblNotice")</h4>
+                            <div>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <a href="#">Support</a></p>
+                                <ul>
+                                    <li>Quisque sit amet nibh.</li>
+                                    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>Aliquam molestie, nibhid imperdiet pellentesque</li>
+                                    <li>Ipsum tortor sagittis purus, non con vallis justo purus et nulla.</li>
+                                    <li>Proin ipsum felis, tincidunvt vhendrerit.</li>
+                                    <li>Interdum ipsum ad risus conubia, porttitor.</li>
+                                    <li>Vestibulum quam. Maecenas ornare congue lacus. Ut euismod imperdiet ipsum.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Content-->
+
+<script src="~/Areas/Common/Scripts/Common.Core.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('input[id="Global.Login.txtUserName"]').focus();
+    });
+
+</script>
+
+
+
+
+
+
+
+
+

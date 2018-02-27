@@ -1,0 +1,81 @@
+﻿<!-- bootstrap & fontawesome -->
+@Styles.Render("~/Content/Multiorg_bootstrap_css")
+<!-- page specific plugin styles -->
+@Styles.Render("~/Content/Multiorg_general_css")
+<!--[if lte IE 9]>
+    <link rel="stylesheet" href="~/Content/multiorg-part2.min.css" />
+<![endif]
+<link rel="stylesheet" href="~/Content/multi-skins.css">
+<link rel="stylesheet" href="~/Content/multi-rtl.css">-->
+<!--[if lte IE 9]>
+    <link rel="stylesheet" href="~/Content/multiorg-ie.min.css" />
+<![endif]-->
+<!-- inline styles related to this page -->
+<!--styling the grid page's grid elements
+<style>
+.center {
+    text-align: center;
+}
+.center [class*="col-"] {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    position: relative;
+    text-overflow: ellipsis;
+}
+.center [class*="col-"] span {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+.center [class*="col-"]:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 2px;
+    right: 2px;
+    z-index: 1;
+    border: 1px solid #DDD;
+}
+.center [class*="col-"]:hover:before {
+    background-color: #FCE6A6;
+    border-color: #EFD27A;
+}
+</style>-->
+<!-- ace settings handler -->
+<script src="~/Scripts/multiorg-extra.js"></script>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lte IE 8]>
+        <script src="~/Scripts/html5shiv.js"></script>
+        <script src="~/Scripts/respond.min.js"></script>
+        <![endif]-->
+<!--<style class="firebugResetStyles" type="text/css" charset="utf-8"></style>-->
+
+<!-- basic scripts -->
+<!--[if !IE]> -->
+@Scripts.Render("~/bundles/Multiorg_jquery_script")
+<!-- <![endif]-->
+<!--[if IE]>
+<script src="~/Scripts/jquery-1.10.2.min.j"></script>
+<![endif]-->
+<!--[if !IE]> -->
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='~/Scripts/jquery-1.10.2.min.js'>" + "<" + "/script>");
+</script>
+<!-- <![endif]-->
+<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='~/Scripts/jquery1x.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+<script type="text/javascript">
+    if ('ontouchstart' in document.documentElement) document.write("<script src='~/Scripts/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+</script>
+@Scripts.Render("~/bundles/Multiorg_bootstrap_script")

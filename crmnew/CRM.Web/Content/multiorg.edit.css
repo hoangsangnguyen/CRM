@@ -1,0 +1,33 @@
+﻿/*DAONV*/
+	
+	
+	
+th.k-header {
+  background-color: #e1f3fc !important;
+  border-bottom: medium none;
+  border-radius: 3px;
+  border-right: 1px solid #dcdada;
+  color: #6079a3;
+  font-size: 16px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 20px !important;
+  text-align: center !important;
+  vertical-align: middle;
+}
+
+table.k-selectable tbody tr:nth-child(2n+1)
+{
+    background-color:#f5f5f5;
+}
+
+table.k-selectable tbody tr td {border-bottom: solid 1px #ddd;}
+table.k-selectable tbody tr:hover{background-color:#f5f5f5;}
+
+table.k-selectable tbody tr:last-child td {border-bottom:none;}
+
+div.k-grid-content{overflow: hidden;}
+
+div.k-grid-header {padding-right:0px !important;}
+.k-state-selected{color:initial !important}
+.k-pager-sizes{float:left;}

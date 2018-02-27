@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <link href="~/Content/bootstrap_login.css" rel="stylesheet">
+    <link href="~/Content/bootstrap-responsive.css" rel="stylesheet">
+    <link href="~/Content/login.css" rel="stylesheet">
+    <link href="~/Content/css_login.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/css_login.edit.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/font-icon.css" rel="stylesheet">
+    <!--[if lte IE 7]><script src="js/lte-ie7.js"></script><![endif]-->
+    <!--[if IE 7]> <link href="styles/font-awesome-ie7.min.css" rel="stylesheet" /> <![endif]-->
+    <!--[if IE 8]> <style type="text/css"> .navbar-inner{filter:none; } </style> <![endif]-->
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    @*<script src="~/Areas/Common/Scripts/jquery.validate.js"></script>
+    <script src="~/Areas/Common/Scripts/jquery.validate.unobtrusive.js"></script>*@
+    
+</head>
+<body>
+    <div id="navbar" class="navbar navbar-default"> <a href="index.html" class="logo_big"> <img alt="logo" src="~/Content/images/logo_big.png"></a> </div>
+    <div class="main-container" id="main-container">
+        <div class="breadcrumbs" id="breadcrumbs"> </div>
+        <div class="container">
+            @RenderBody()
+
+            @*<div class="row-fluid">
+                    <div class="span10 offset1">
+                        <div class="tabbable custom-tabs tabs-animated  flat flat-all hide-label-980 shadow track-url auto-scroll">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#panel1" data-toggle="tab" class="active "><i class="icon_lock"></i>&nbsp;<span>Login Panel</span></a></li>
+                                <li><a href="#panel2" data-toggle="tab"><i class="icon_key"></i>&nbsp;<span>Forgot Password</span></a></li>
+                                <li><a href="#panel3" data-toggle="tab"><i class="icon_mail"></i>&nbsp;<span>Contact Us</span></a></li>
+                            </ul>
+                            <div class="tab-content ">
+                                <div class="tab-pane active" id="panel1">
+                                    <div class="row-fluid">
+                                        <div class="span8">
+                                            <h4 class="title_login"><i class="icon_profile color-baclk"></i>&nbsp;Login Here</h4>
+                                            <label>Username</label>
+                                            <span class="error">Please input your Username</span>
+                                            <input class="input-block-level" type="text">
+                                            <label>Password</label>
+                                            <span class="error">Please input your Username</span>
+                                            <input class="input-block-level" type="password">
+                                            <label>
+                                                <button type="button" data-toggle="button" class="btn btn-mini custom-checkbox active"><i class="icon-ok"></i></button>
+                                                &nbsp;&nbsp;&nbsp;Remember Me
+                                            </label>
+                                            <section class="wr_capcha">
+                                                <input type="text" value="" name="CaptchaInputText" class="txt_capcha" placeholder="Enter security code" id="CaptchaInputText" maxlength="6" autocomplete="off">
+                                                <img src="~/images/img_capcha.png" id="CaptchaImage" alt="" class="captchaImage">
+                                                <input type="hidden" value="0" name="MultipleParameterKey" id="MultipleParameterKey">
+                                                <input type="hidden" value="d" name="CaptchaDeText" id="CaptchaDeText">
+                                                <a onclick="" id="sd" href="#CaptchaImage" class="refreshCaptcha" style="text-indent:-9999px; display:block">Refresh</a> <span class="error">Please input capcha</span>
+                                            </section>
+                                            <br />
+                                            <a href="#" class="btn_login">Sign in</a>
+                                        </div>
+                                        <div class="span4">
+                                            <h4 class="title_login"><i class="social_dribbble color-baclk"></i>&nbsp;Social</h4>
+                                            <div class="socials clearfix"> <a class="social_facebook facebook"></a> <a class="social_twitter twitter"></a> <a class="social_googleplus google-plus"></a> <a class="social_pinterest pinterest"></a> <a class="social_linkedin linked-in"></a> <a class="social_instagram_circle github"></a> </div>
+                                        </div>
+                                        <div class="wr_text_FAQ"> <span>* We use cookies to give you the best possible experience on our site. By continuing to use the site you agree to our use of cookies. <a href="#" title=""> Find out more </a></span> </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="panel2">
+                                    <div class="row-fluid">
+                                        <div class="span7">
+                                            <h4 class="title_login"><i class="icon_profile color-baclk"></i>&nbsp;Forgot password</h4>
+                                            <label>Email</label>
+                                            <span class="error">Please input your Email</span>
+                                            <input class="input-block-level" type="text">
+                                            <label>Password</label>
+                                            <span class="error">Please input your Username</span>
+                                            <input class="input-block-level" type="password">
+                                            <section class="wr_capcha">
+                                                <input type="text" value="" name="CaptchaInputText" class="txt_capcha" placeholder="Enter security code" id="CaptchaInputText" maxlength="6" autocomplete="off">
+                                                <img src="~/images/img_capcha.png" id="CaptchaImage" alt="" class="captchaImage">
+                                                <input type="hidden" value="0" name="MultipleParameterKey" id="MultipleParameterKey">
+                                                <input type="hidden" value="d" name="CaptchaDeText" id="CaptchaDeText">
+                                                <a onclick="" id="sd" href="#CaptchaImage" class="refreshCaptcha" style="text-indent:-9999px; display:block">Refresh</a> <span class="error">Please input capcha</span>
+                                            </section>
+                                            <br />
+                                            <a href="#" class="btn_login">Send Email</a>
+                                        </div>
+                                        <div class="span5">
+                                            <h4 class="title_login"><i class="icon_info color-baclk"></i>&nbsp;Notice</h4>
+                                            <div>
+                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <a href="#">Support</a></p>
+                                                <ul>
+                                                    <li>Quisque sit amet nibh.</li>
+                                                    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <ul>
+                                                    <li>Aliquam molestie, nibhid imperdiet pellentesque</li>
+                                                    <li>Ipsum tortor sagittis purus, non con vallis justo purus et nulla.</li>
+                                                    <li>Proin ipsum felis, tincidunvt vhendrerit.</li>
+                                                    <li>Interdum ipsum ad risus conubia, porttitor.</li>
+                                                    <li>Vestibulum quam. Maecenas ornare congue lacus. Ut euismod imperdiet ipsum.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="panel3" class="tab-pane">
+                                    <div class="row-fluid">
+                                        <div class="span7">
+                                            <h4 class="title_login"><i class="icon_mail color-baclk"></i>&nbsp;Contact Us</h4>
+                                            <label>Name</label>
+                                            <span class="error">Please input your Name</span>
+                                            <input id="" class="input-block-level" type="text">
+                                            <label>Title</label>
+                                            <input id="Text1" class="input-block-level" type="text">
+                                            <label>Content</label>
+                                            <span class="error">Please input content</span>
+                                            <textarea class="input-block-level" rows="5"></textarea>
+                                            <br />
+                                            <a href="#" class="btn_login">Send Contact</a>
+                                        </div>
+                                        <div class="span5">
+                                            <h4 class="title_login"><i class="icon_info color-baclk"></i>&nbsp;Notice</h4>
+                                            <div>
+                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <a href="#">Support</a></p>
+                                                <ul>
+                                                    <li>Quisque sit amet nibh.</li>
+                                                    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <ul>
+                                                    <li>Aliquam molestie, nibhid imperdiet pellentesque</li>
+                                                    <li>Ipsum tortor sagittis purus, non con vallis justo purus et nulla.</li>
+                                                    <li>Proin ipsum felis, tincidunvt vhendrerit.</li>
+                                                    <li>Interdum ipsum ad risus conubia, porttitor.</li>
+                                                    <li>Vestibulum quam. Maecenas ornare congue lacus. Ut euismod imperdiet ipsum.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            <!--content-->
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-inner footer-inner_mul">
+            <div class="footer-content"> <span class="footer_left">© 2014 MultiOrg AS, Inc. All Rights Reserved.</span> <span class="footer_right">Alle rettigheter forbeholdes © <a href="www.cateno.no" title="cateno"> Cateno AS. </a></span> </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/tabs-addon.js"></script>
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript" src="~/Scripts/jquery.common.js"></script>
+    @*Message box confirm*@
+    <input type="hidden" id="confirmDialogTitleDefault" value="Information" />
+    <input type="hidden" id="confirmDialogContentDefault" value="Do you want to delete this record?" />
+
+    <script type="text/x-kendo-template" id="confirmationPublic">
+        <div id="modal">
+            <h4><span></span></h4>
+            <div class="wr_bottom_popup_s mt30 Msgconfirm" style="display:none;">
+                <section class="wr_btn_action">
+                    <button class="confirmMsg delete_big" type="button">Delete</button>
+                </section>
+                <section class="wr_btn_action">
+                    <button class="cancelMsg cancel_big" type="button">Cancel</button>
+                </section>
+            </div>
+            <div class="BoxShowError" style="display:none;">
+                <div class="wr_bottom_popup_s_1 MsgErr">
+                </div>
+                <div class="wr_bottom_popup_s">
+                    <section class="wr_btn_action">
+                        <button class="cancelError ok_big" type="button">OK</button>
+                    </section>
+                </div>
+            </div>
+
+            <div class="wr_bottom_popup_s mt30 MsgOk" style="display:none;">
+                <section class="wr_btn_action">
+                    <button class="okMsg ok_big" type="button">OK</button>
+                </section>
+            </div>
+        </div>
+    </script>
+    @Scripts.Render("~/bundles/Multiorg_validate_script")
+</body>
+</html>

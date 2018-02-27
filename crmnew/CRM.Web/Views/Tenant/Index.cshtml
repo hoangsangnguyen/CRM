@@ -1,0 +1,83 @@
+﻿@model IEnumerable<CRM.Entities.Models.Customers>
+
+@{
+    ViewBag.Title = "Demo Customers";
+}
+
+@section styles
+{
+    @Styles.Render("~/Content/Multiorg_kendo_css")
+    <link href="~/Content/css.edit.css" rel="stylesheet" />
+    <link href="~/Content/style.kendo.edit.css" rel="stylesheet" />
+}
+
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+    <ul class="breadcrumb">
+        <li><i class="multi-icon fa icon_house"></i></li>
+        <li><a href="#">Home</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ul>
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" type="text">
+                <i class="multi-icon fa icon_search nav-search-icon" id="btn_search"></i>
+            </span>
+        </form>
+    </div>
+</div>
+
+
+<div class="page-content">
+    <div class="page-header">
+        <ul class="btn-top pull-right">
+            @*<li>@Html.ActionLink("Add new tenants", "Create", null, new { @class = "add_big" })</li>*@
+            <!--<li><a class="cancel_big" href="#">Cancel</a></li>-->
+        </ul>
+        <h1>
+            @ViewBag.Title
+        </h1>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12" id="grid" style="padding:0; margin:0">
+            <table class="table table-striped table-bordered table-hover mb0 mt30">
+                <colgroup>
+                    <col />
+                    <col />
+                    <col />
+                    <col />
+                    <col />
+                </colgroup>
+                <thead class="k-grid-header">
+                    <tr>
+                        <th class="k-header" scope="col">Name</th>
+                        <th class="k-header" scope="col">Address</th>
+                        <th class="k-header" scope="col">Email</th>
+                        <th class="k-header" scope="col">Phone</th>
+                        <th class="k-header" scope="col">Website</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr class="t-no-data">
+                                <td role="gridcell">@item.CustomerName</td>
+                                <td role="gridcell">@item.Address</td>
+                                <td role="gridcell">@item.Email</td>
+                                <td role="gridcell">@item.Phone</td>
+                                <td role="gridcell">@item.Website</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <input type="hidden" id="confirmDialogTitle" value="Information" />
+        </div>
+    </div>
+</div>

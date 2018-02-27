@@ -1,0 +1,156 @@
+﻿@using System.Collections.Generic
+@using CRM.Entities.Models
+@model CRM.Admin.Models.UserGroupModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    int roleOperator = (int)CRM.Core.UserGroupEnum.Operator;
+
+    CRM.Admin.Models.UserInfo userInfo = new CRM.Admin.Models.UserInfo();
+    if (System.Web.HttpContext.Current.Session["UserInfo"] != null)
+    {
+        userInfo = System.Web.HttpContext.Current.Session["UserInfo"] as CRM.Admin.Models.UserInfo;
+    }
+}
+
+<div id="breadcrumbs" class="breadcrumbs">
+    <script type="text/javascript">
+        try { multi.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+    <ul class="breadcrumb">
+        <li><i class="multi-icon fa fa-home icon_house"></i></li>
+        <li><a href="#">Home</a></li>
+        <li>Manage user groups</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <div id="nav-search" class="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" autocomplete="off" id="nav-search-input" class="nav-search-input" placeholder="Search ...">
+                <i class="multi-icon fa icon_search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="page-header">
+        <ul class="btn-top pull-right">
+            <li><a href="#" class="save_big">Save</a></li>
+            <li><a href="#" class="cancel_big">Cancel</a></li>
+        </ul>
+        <h1>
+            Manage user groups
+            <!--<small> <i class="multi-icon fa arrow_triangle-right"></i> bootstrap grid sizing </small>-->
+        </h1>
+
+    </div>
+    <form id="usergroupData">
+        @Html.AntiForgeryToken()
+        <div class="center mt60">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="user-profile row">
+
+                        <div class="col-xs-12">
+
+
+                            <div class="profile-user-info profile-user-info-striped">
+                                @*<ul class="wr_mn_hover">
+                                        <li><a title="Edit" href="#" class="ihv_edit">edit</a></li>
+                                        <li><a title="Reload" href="#" class="ihv_reload">Reload</a></li>
+                                        <li><a title="Save" href="#" class="ihv_save">Save</a></li>
+                                    </ul>*@
+                                @if (Model != null && Model.ID > 0)
+                                {
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name"> ID </div>
+                                        <div class="profile-info-value text-left bolder">@Model.ID</div>
+                                    </div>
+                                }
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Name <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left bolder"><input type="text" id="Name" name="Name" value="@Model.Name" class="edit_input bolder" /></div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Active</div>
+                                    <div class="profile-info-value text-left"><input type="checkbox" id="Active" name="Active" class="multi" @if ((Model != null && Model.Active == true) || Model.ID == 0) { @Html.Raw("checked='checked'")          }><span class="lbl"></span></div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Permission type </div>
+                                    <div class="profile-info-value text-left">
+                                        <select name="PermissionTypeID" id="PermissionTypeID" class="edit_input">
+                                            @foreach (KeyValuePair<int, string> item in Model.ListPermType)
+                                            {
+                                                <option value="@item.Key" @if (Model != null && Model.PermissionTypeID == item.Key) { @Html.Raw("selected='selected'")            }>@item.Value</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                @if (userInfo.TenanID.Equals(0))
+                                {
+                                    <div class="profile-info-row" id="tenantTag" @(Model.PermissionTypeID.Equals(roleOperator) ? "style=display:none" : "")>
+                                        <div class="profile-info-name"> Tenant </div>
+                                        <div class="profile-info-value text-left">
+                                            <select name="TenantId" id="TenantId" class="edit_input">
+                                                @foreach (KeyValuePair<int, string> item in Model.ListTenant)
+                                                {
+                                                    <option value="@item.Key" @if (Model != null && Model.TenantId == item.Key) { @Html.Raw("selected='selected'")              }>@item.Value</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Description </div>
+                                    <div class="profile-info-value text-left"><textarea class="form-control no-border" id="Description" name="Description">@Model.Description</textarea></div>
+                                </div>
+                                <input type="hidden" name="ID" id="ID" value="@Model.ID" />
+                            </div>
+                            <div class="space-6"></div>
+
+
+
+                            <div class="space-6"></div>
+                            <div class="align-right">
+                                <div class="wr_btn_action">
+                                    <input type="button" value="Cancel" class="cancel_big">
+                                </div>
+                                <div class="wr_btn_action">
+                                    <input type="button" value="Save" class="save_big">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end box table content-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <input type="hidden" name="OldName" id="OldName" value="@Model.Name" />
+        <input type="hidden" name="OldtenantID" id="OldtenantID" value="@roleOperator" />
+    </form>
+</div>
+
+@section scripts
+{
+    <script src="~/Areas/Admin/Scripts/usergroup.js"></script>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#PermissionTypeID').change(function () {
+            LoadTent(this.value);
+        });
+        function LoadTent(permisstype) {
+            if (permisstype == $('#OldtenantID').val()) {
+                $("#tenantTag").css("display", "none");
+            }
+            else {
+                $("#tenantTag").css("display", "table-row");
+            }
+        }
+    });
+</script>

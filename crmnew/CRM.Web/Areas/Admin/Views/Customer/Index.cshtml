@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section styles
+{
+    @Styles.Render("~/Content/Multiorg_kendo_css")
+    <link href="~/Content/style.kendo.edit.css" rel="stylesheet" />
+    <link href="~/Content/multiorg.edit.css" rel="stylesheet" />
+}
+
+<div id="breadcrumbs" class="breadcrumbs">
+    <script type="text/javascript">
+        try { multi.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+    <ul class="breadcrumb">
+        <li><i class="multi-icon fa fa-home icon_house"></i></li>
+        <li><a href="#">Home</a></li>
+        <li>Manage customers</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <div id="nav-search" class="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" autocomplete="off" id="nav-search-input" class="nav-search-input" placeholder="Search ...">
+                <i class="multi-icon fa icon_search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="page-header">
+        <ul class="btn-top pull-right">
+            <li><a href="#" class="add_big">Add new customer</a></li>
+        </ul>
+        <h1>
+            Manage customers
+            <!--<small> <i class="multi-icon fa arrow_triangle-right"></i> bootstrap grid sizing </small>-->
+        </h1>
+
+    </div>
+    <div class="center mt60">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="user-profile row">
+                    <!--Grid-->
+                    <div id="myGrid"></div>
+                    <!--EndGrid-->
+                    <div class="space-6"></div>
+                    <!--Button-->
+                    <div class="align-right">
+                        <div class="wr_btn_action wr_btn_action2" style="display:none">
+                            <input type="button" class="cancel_big" value="Cancel" />
+                        </div>
+                        <div class="wr_btn_action wr_btn_action1" style="display:none">
+                            <input type="button" class="save_big" value="Save" />
+                        </div>
+                    </div>
+                    <!--Button-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="totalRow" style="display:none"></div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/Multiorg_kendo_script")
+    <script src="~/Scripts/kendo/2014.1.528/kendo.grid.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            
+        });
+    </script>
+
+    <script src="~/Areas/Admin/Scripts/customer.list.js"></script>
+
+
+}
+
+
+
+

@@ -1,0 +1,358 @@
+﻿@model CRM.Admin.Models.TenantModel
+@using Kendo.Mvc.UI;
+@{
+    ViewBag.Title = "Edit company profiles";
+}
+
+@section styles
+{
+    @Styles.Render("~/Content/Multiorg_kendo_css")
+    <link href="~/Content/style.kendo.edit.css" rel="stylesheet" />
+    <link href="~/Content/css.edit.css" rel="stylesheet" />
+    <style type="text/css">
+        #imgLogo, #imgUploaded {
+            max-height: 180px;
+        }
+
+        .profile-info-row select {
+            width: 99%;
+            height: 24px;
+            border: 0;
+            padding: 2px 5px !important;
+        }
+    </style>
+}
+
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try { multi.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+    <ul class="breadcrumb">
+        <li><i class="multi-icon fa fa-home icon_house"></i></li>
+        <li><a href="#">Home</a></li>
+        <li class="active">Company Profiles</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" type="text">
+                <i class="multi-icon fa icon_search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+<div class="page-content">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.TenantId)
+        <div class="page-header">
+            <ul class="btn-top pull-right">
+                <li><input type="submit" class="save_big" value="Save" /></li>
+                <li><input type="button" class="cancel_big" value="Cancel" onclick="cancel();" /></li>
+            </ul>
+            <h1>
+                Edit
+                <!--<small> <i class="multi-icon fa arrow_triangle-right"></i> bootstrap grid sizing </small>-->
+            </h1>
+
+        </div>
+    <!-- /.page-header -->
+    <!--  PAGE CONTENT BEGINS -->
+        <div class="center mt60">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="user-profile row">
+                        <div class="col-xs-12 col-sm-4 center">
+                            <div>
+                                <span class="profile-picture">
+                                    <img id="imgLogo" class="editable img-responsive  editable-empty" src="@Url.Content(Model.CompanyLogo)" alt="@Model.TenantName" />
+                                    <img id="imgUploaded" class="editable img-responsive  editable-empty" src="" alt="@Model.TenantName" style="display:none" />
+                                </span>
+                                <div class="space-12"></div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="profile-user-info profile-user-info-striped">
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100">Logo</div>
+                                    <div class="profile-info-value text-left">
+                                        @(Html.Kendo().Upload()
+                                            .Multiple(false)
+                                    .Name("file")
+                                            .Async(a => a
+                                                .Save("SaveLogoUpload", "Common")
+                                                //.Remove("RemoveLogoUpload", "Tenant")
+                                                .AutoUpload(true)
+                                            )
+                                    .Events(events => events
+                                            .Select("onSelect")
+                                            .Success("onSuccess")
+                                        )
+                                        )
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100">URL</div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.Website, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"><i class="middle multi-icon fa social_twitter_circle bigger-190 light-blue"></i></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.TwitterURL, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"><i class="middle multi-icon fa social_facebook_circle  bigger-190 blue"></i></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.FacebookURL, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"> <i class="middle multi-icon fa social_linkedin_circle  bigger-190 blue"></i></div>
+                                    <div class="profile-info-value text-left ">
+                                        @Html.TextBoxFor(model => model.LinkedURL, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"> <i class="middle multi-icon fa social_googleplus_circle bigger-190 red"></i></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.GoogleplusURL, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="align-right clearfix mb15">
+                                <div class="wr_btn_action">
+                                    <input type="button" class="cancel_big" value="Cancel" onclick="cancelSaveLogo();" />
+                                </div>
+                                <div class="wr_btn_action">
+                                    <input type="button" class="save_big" value="Save" onclick="saveLogo();" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="align-right">
+                                @*<a href="@Url.Action("Index", "User", new { area = "Admin", id = Model.TenantId })" class="btn btn-app btn-sm btn-light">
+                                        <span class="line-height-1 bigger-170 blue"> 1,411 </span> <br>
+                                        <i class="menu-icon fa icon_group"></i> <span class="line-height-1 smaller-90">Users</span>
+                                    </a>*@
+                                @{Html.RenderAction("CountUser", "User", new { area = "Admin", tenantId = @Model.TenantId });}
+                                <a href="#" class="btn btn-app btn-sm btn-yellow">
+                                    <span class="line-height-1 bigger-170"> 32 </span> <br>
+                                    <i class="menu-icon fa icon_piechart"></i> <span class="line-height-1 smaller-90"> Projects </span>
+                                </a> <a href="#" class="btn btn-app btn-sm btn-pink">
+                                    <span class="line-height-1 bigger-170"> 4 </span> <br>
+                                    <i class="menu-icon fa icon_tag"></i> <span class="line-height-1 smaller-90"> Tickets </span>
+                                </a> <a href="#" class="btn btn-app btn-sm btn-grey">
+                                    <span class="line-height-1 bigger-170"> 23 </span> <br>
+                                    <i class="menu-icon fa icon_contacts_alt"></i> <span class="line-height-1 smaller-90"> Contacts </span>
+                                </a>
+                                @{Html.RenderAction("_CountLog", "Log", new { area = "Admin", tenantId = @Model.TenantId });}
+                            </div>
+                            <div class="space-12"></div>
+                            <div class="profile-user-info profile-user-info-striped">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.TenantName) <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left bolder">
+                                        @Html.TextBoxFor(model => model.TenantName, new { @class = "edit_input bolder" })
+                                        @Html.ValidationMessageFor(model => Model.TenantName, null, new { @class = "mesValidate" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Html.DisplayNameFor(model => model.TenantNameAlias) <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left bolder">
+                                        @Html.DisplayFor(model => model.TenantNameAlias)
+                                    </div>
+
+                                    @*@Html.TextBox("Alias", Model.TenantNameAlias, new { @class = "edit_input bolder", @disabled = "disabled", @readonly = "readonly" })*@
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.Email) <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "edit_input" })
+                                        @Html.ValidationMessageFor(model => Model.Email, null, new { @class = "mesValidate" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.PostedAddress) </div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.PostedAddress, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.VisitingAddress) </div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.VisitingAddress, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Html.LabelFor(model => model.CountryId)</div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.DropDownList("CountryId", Model.AvailableCountries, "Choose country")
+                                        @Html.ValidationMessageFor(model => Model.CountryId, null, new { @class = "mesValidate" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Html.LabelFor(model => model.Fax)</div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.Fax, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Html.DisplayNameFor(model => model.OrgNumber)</div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.DisplayFor(model => model.OrgNumber)
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Html.DisplayNameFor(model => model.CreatedDate)</div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.DisplayFor(model => model.CreatedDate)
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">Infomation</div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextAreaFor(model => model.Information, new { @class = "form-control no-border" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="profile-user-info profile-user-info-striped">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">Contact person</div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.DropDownList("AssignedUserId", Model.AvailableUsers, "Choose user", new { onchange = "onChangeAssigned(this);" })
+                                        @Html.ValidationMessageFor(model => Model.AssignedUserId, null, new { @class = "mesValidate" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-user-info profile-user-info-striped" id="showUser" style="border-top:0">
+                                @{Html.RenderAction("_ContactCompanyProfile", "User", new { area = "Admin", userId = @Model.AssignedUserId });}
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="align-right">
+                                <div class="wr_btn_action">
+                                    <input type="button" class="cancel_big" value="Cancel" onclick="cancel();" />
+                                </div>
+                                <div class="wr_btn_action">
+                                    <input type="submit" class="save_big" value="Save" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end box table content-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- PAGE CONTENT ENDS-->
+    <!-- /.row-->
+    }
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/Multiorg_kendo_script")
+    <script>
+        // select image
+        function onSelect(e) {
+            $.each(e.files, function (index, value) {
+                checkImageUpload(value);
+            });
+        };
+
+        // only upload image file
+        function checkImageUpload(input) {
+            var blnValid = false;
+            var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
+            for (var j = 0; j < _validFileExtensions.length; j++) {
+                var sCurExtension = _validFileExtensions[j];
+                if (input.extension.toLowerCase() == sCurExtension.toLowerCase()) {
+                    blnValid = true;
+                }
+            }
+
+            if (!blnValid) {
+                alert("Sorry, " + input.name + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                return false;
+            }
+        }
+
+        // upload success
+        function onSuccess(e) {
+
+            var responseTxt = jQuery.parseJSON(e.XMLHttpRequest.responseText);
+
+            //var status = responseTxt.Status;
+            var srcValue = responseTxt.PictureUrl;
+
+            if (srcValue != null) {
+                $("#imgLogo").hide();
+                $("#imgUploaded").attr('src', srcValue).show();
+            } else {
+                //$("#imgUploaded").attr('src', srcValue);
+                //$("#imgLogo").hide();
+            }
+
+        }
+
+        //event when click remove file
+        function onRemove(e) {
+            //$(".k-upload-files.k-reset").remove();
+        }
+
+        // save logo new
+        function saveLogo() {
+            var tenantId = $('#TenantId').val();
+            var url = $('#Website').val();
+            var facebook = $('#FacebookURL').val();
+            var twitter = $('#TwitterURL').val();
+            var google = $('#GoogleplusURL').val();
+            var linked = $('#LinkedURL').val();
+
+            $.ajax({
+                type: 'GET',
+                url: '/Admin/Common/EditLogo',
+                data: { tenantId: tenantId, url: url, facebook: facebook, twitter: twitter, google: google, linked: linked },
+                success: function (data) {
+                    alert(data);
+                },
+                error: function () { }
+            });
+        }
+
+        // cancel save logo
+        function cancelSaveLogo() {
+            $("#imgUploaded").hide();
+            $("#imgLogo").show();
+        }
+
+        function cancel() {
+            var siteUrl = "/admin/Common/TenantDetail";
+            window.location = siteUrl;
+        }
+
+        // onchange in dropdownlist AssignedUser
+        function onChangeAssigned(dropdown) {
+            var location = dropdown.options[dropdown.selectedIndex].value;
+            if (location.length > 0) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Admin/User/_ContactCompanyProfile',
+                    data: { userId: location },
+                    success: function (data) {
+                        $("#showUser").html(data);
+                    },
+                    error: function () { }
+                });
+            }
+        }
+    </script>
+    @Scripts.Render("~/bundles/Multiorg_validate_script")
+}

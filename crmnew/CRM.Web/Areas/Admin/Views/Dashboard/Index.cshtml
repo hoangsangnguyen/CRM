@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    CRM.Admin.Models.UserInfo userInfo = System.Web.HttpContext.Current.Session["UserInfo"] as CRM.Admin.Models.UserInfo;
+    bool isTenantAdmin = false;
+    if (userInfo != null)
+    {
+        if (userInfo.IsTenant)
+        {
+            isTenantAdmin = true;
+        }
+    }
+}
+@section styles
+{
+    @Styles.Render("~/Content/Multiorg_kendo_css")
+    <link href="~/Content/css.edit.css" rel="stylesheet" />
+    <link href="~/Content/style.kendo.edit.css" rel="stylesheet" />
+}
+
+@if (isTenantAdmin)
+{
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+        <ul class="breadcrumb">
+            <li><i class="multi-icon fa icon_house"></i></li>
+            <li><a href="#">Home</a></li>
+            <li class="active">Customers</li>
+        </ul>
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+                    <input placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" type="text">
+                    <i class="multi-icon fa icon_search nav-search-icon" id="btn_search"></i>
+                </span>
+            </form>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="page-header">
+
+            <ul class="btn-top pull-right"></ul>
+            <h1>
+                Customers
+            </h1>
+
+            @{Html.RenderAction("_ViewListCustomers", "Customer");}
+
+        </div>
+    </div>
+}

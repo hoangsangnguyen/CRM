@@ -1,0 +1,10 @@
+﻿.table-bordered > tbody > tr > td {border-bottom: 0; border-right: 0;}
+.table-bordered > tbody > tr > td img{max-height:42px;}
+.table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > th, .table > caption + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > td, .table > thead:first-child > tr:first-child > td{border-right:0}
+.k-grid tbody .k-button, .k-ie8 .k-grid tbody button.k-button{border:0;min-width: 0}
+.k-alt, .k-separator {background-color: #FFFFFF;}
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {background-color: #F9F9F9;}
+.k-button:hover{background:none; }
+.k-grid-header .k-header>.k-link{color:#6079a3;}
+.k-grid-header .k-header{font-weight:700 !important;}
+.k-grid td{overflow: initial !important}

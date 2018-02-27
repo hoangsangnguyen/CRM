@@ -1,0 +1,113 @@
+﻿@model CRM.Admin.Models.UserGroupModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section styles
+{
+    <link href="~/Content/multiorg.edit.css" rel="stylesheet" />
+}
+
+<div id="breadcrumbs" class="breadcrumbs">
+    <script type="text/javascript">
+        try { multi.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+    <ul class="breadcrumb">
+        <li><i class="multi-icon fa fa-home icon_house"></i></li>
+        <li><a href="#">Home</a></li>
+        <li>Manage user groups</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <div id="nav-search" class="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" autocomplete="off" id="nav-search-input" class="nav-search-input" placeholder="Search ...">
+                <i class="multi-icon fa icon_search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="page-header">
+        <ul class="btn-top pull-right">
+            <li><a href="#" class="back_big">Back</a></li>
+        </ul>
+        <h1>
+            Manage user groups
+            <!--<small> <i class="multi-icon fa arrow_triangle-right"></i> bootstrap grid sizing </small>-->
+        </h1>
+
+    </div>
+    <div class="center mt60">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="user-profile row">
+
+                    <div class="col-xs-12">
+
+
+                        <div class="profile-user-info profile-user-info-striped">
+                            @*<ul class="wr_mn_hover">
+                                <li><a title="Edit" href="#" class="ihv_edit">edit</a></li>
+                                <li><a title="Reload" href="#" class="ihv_reload">Reload</a></li>
+                                <li><a title="Save" href="#" class="ihv_save">Save</a></li>
+                            </ul>*@
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> ID <span class="bigger-120 red">*</span></div>
+                                <div class="profile-info-value text-left bolder">@Model.ID</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Name <span class="bigger-120 red">*</span></div>
+                                <div class="profile-info-value text-left bolder">@Model.Name</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Action <span class="bigger-120 red">*</span></div>
+                                <div class="profile-info-value text-left"><input type="checkbox" disabled="disabled" class="multi" @if(Model.Active==true){@Html.Raw("checked='checked'")}><span class="lbl"></span></div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Permission type </div>
+                                <div class="profile-info-value text-left">@Model.PermissionTypeName</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Tenant </div>
+                                <div class="profile-info-value text-left">@Model.TenantName</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Description </div>
+                                <div class="profile-info-value text-left">@Model.Description</div>
+                            </div>
+                        </div>
+                        <div class="space-6"></div>
+
+
+
+                        <div class="space-6"></div>
+                        <div class="align-right">
+                            <div class="wr_btn_action">
+                                <input type="button" value="Back" class="back_big">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end box table content-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="totalRow"></div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.back_big').click(function () {
+                document.location = "/Admin/Usergroup";
+                return false;
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,49 @@
+﻿@model string
+@{
+    CRM.Admin.Models.UserInfo userInfo = System.Web.HttpContext.Current.Session["UserInfo"] as CRM.Admin.Models.UserInfo;
+    bool Role = false;
+    if (userInfo != null)
+    {
+        if (userInfo.IsSA || userInfo.IsOperator) { Role = true; }
+    }
+
+}
+@if (Role)
+{
+    <div class="navbar-header pull-left">
+        <a href="#" class="logo_big">
+            <img alt="logo" src="@Url.Content("~/Content/images/logo_big.png")" />
+        </a>
+    </div>
+}
+else
+{
+    <div class="navbar-header pull-left">
+        <a href="#" class="logo_big">
+            @*<img alt="logo" src="@Url.Content(Model)">*@
+            <img alt="logo" src="abc">
+        </a>
+        <a class="logo_small" href="#">
+            <img src="@Url.Content("~/Content/images/logo_small.png")" alt="logo">
+        </a>
+    </div>
+
+    <style type="text/css">
+        .logo_big, .logo_small {
+            float: left;
+        }
+
+            .logo_big img {
+                max-height: 88px;
+                max-width: 209px;
+            }
+
+            .logo_big a {
+                min-height: 48px;
+            }
+
+        .logo_small {
+            margin-left: auto;
+        }
+    </style>
+}

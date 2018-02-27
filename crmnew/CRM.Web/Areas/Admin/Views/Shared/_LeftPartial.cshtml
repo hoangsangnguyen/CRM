@@ -1,0 +1,210 @@
+﻿@using CRM.Core
+@using CRM.Admin.Models
+@{
+    UserInfo userInfo = System.Web.HttpContext.Current.Session["UserInfo"] as UserInfo;
+}
+<script type="text/javascript">
+    try { ace.settings.check('sidebar', 'fixed') } catch (e) { }
+</script>
+<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+    <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+        <button class="btn btn-success"> <i class="multi-icon fa social_rss"></i> </button>
+        <button class="btn btn-info"> <i class="multi-icon fa icon_pencil"></i> </button>
+        <button class="btn btn-warning"> <i class="multi-icon fa icon_pin"></i> </button>
+        <button class="btn btn-danger"> <i class="multi-icon fa icon_cogs"></i> </button>
+    </div>
+    <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini"> <span class="btn btn-success"></span> <span class="btn btn-info"></span> <span class="btn btn-warning"></span> <span class="btn btn-danger"></span> </div>
+</div>
+<!-- /.sidebar-shortcuts -->
+<ul style="top: 0px;" class="nav nav-list">
+    <li class="">
+        <a href="@Url.Action("Index", "Dashboard", new { area = "Admin" })">
+            <i class="menu-icon fa icon_easel_alt"></i>
+            <span class="menu-text"> Dashboard </span>
+        </a>
+        <b class="arrow"></b>
+    </li>
+    @if (!userInfo.IsSA && !userInfo.IsOperator)
+    {
+        <li class="hsub companyProfile">
+            <a href="@Url.Action("TenantDetail", "Common", new { area = "Admin" })">
+                <i class="menu-icon fa icon_building_alt"></i>
+                <span class="menu-text">Company profiles</span>
+            </a>
+        </li>
+        <li class="hsub manageCustomers">
+            <a href="#">
+                <i class="menu-icon fa icon_id_alt"></i>
+                <span class="menu-text"> Customers </span>
+            </a>
+        </li>
+        <li class="hsub manageContacts">
+            <a href="#">
+                <i class="menu-icon fa icon_id_alt"></i>
+                <span class="menu-text"> Contacts </span>
+            </a>
+        </li>
+         <li class="hsub manageProjects">
+            <a href="#">
+                <i class="menu-icon fa icon_id_alt"></i>
+                <span class="menu-text"> Projects </span>
+            </a>
+        </li>
+    }
+
+    <li class="hsub">
+        <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa icon_clipboard"></i>
+            <span class="menu-text"> Invoices </span>
+            <b class="arrow fa arrow_triangle-down"></b>
+        </a>
+        <b class="arrow"></b>
+        <ul class="submenu">
+            <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Simple &amp; Dynamic </a> <b class="arrow"></b> </li>
+            <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> jqGrid plugin </a> <b class="arrow"></b> </li>
+        </ul>
+    </li>
+
+    @if (userInfo.IsTenant)
+    {
+        <li class="hsub">
+            <a href="#" class="dropdown-toggle manageUserCL">
+                <i class="menu-icon fa icon_group"></i>
+                <span class="menu-text"> Manage Users </span>
+                <b class="arrow fa arrow_triangle-down "></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class=""> <a href="@Url.Action("Index", "User", new { area = "Admin", id = userInfo.TenanID })" class="subManageUserCL"><i class="menu-icon menu-icon-show fa icon_group"></i>User accounts</a> <b class="arrow"></b> </li>
+                <li class=""> <a href="@Url.Action("Index", "UserGroup", new { area = "Admin" })" class="subManageUserGroupCL"> <i class="menu-icon menu-icon-show fa icon_group"></i> User groups </a> <b class="arrow"></b> </li>
+                <li class=""> <a href="@Url.Action("AccessRight", "Roles", new { area = "Admin" })" class="subAccessRightCL"> <i class="menu-icon menu-icon-show fa icon_lock"></i> Access right </a> <b class="arrow"></b> </li>
+            </ul>
+        </li>
+    }
+
+    <li class="">
+        <a href="#">
+            <i class="menu-icon fa icon_calendar"></i>
+            <span class="menu-text">
+                Calendar
+                <span data-original-title="2 Important Events" class="badge badge-transparent tooltip-error" title="">
+                    <i class="multi-icon fa icon_error-triangle red bigger-130"></i>
+                </span>
+            </span>
+        </a>
+        <b class="arrow"></b>
+    </li>
+
+    <li class="">
+        <a href="#">
+            <i class="menu-icon fa icon_tag"></i>
+            <span class="menu-text"> Tickets </span>
+        </a>
+        <b class="arrow"></b>
+    </li>
+
+    <li class="hsub">
+        <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa icon_plus_alt2"></i>
+            <span class="menu-text">
+                Other Pages
+                <span class="badge badge-primary">5</span>
+            </span>
+            <b class="arrow fa arrow_triangle-down"></b>
+        </a>
+        <b class="arrow"></b>
+        <ul style="display: none;" class="submenu nav-hide">
+            <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> FAQ </a> <b class="arrow"></b> </li>
+            <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Error 404 </a> <b class="arrow"></b> </li>
+            <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Error 500 </a> <b class="arrow"></b> </li>
+            <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Grid </a> <b class="arrow"></b> </li>
+            <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Blank Page </a> <b class="arrow"></b> </li>
+        </ul>
+    </li>
+</ul>
+<!-- /.nav-list -->
+<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse"> <i class="multi-icon fa arrow_carrot-2left" data-icon1="multi-icon fa arrow_carrot-2left" data-icon2="multi-icon fa arrow_carrot-2right"></i> </div>
+@if (userInfo.IsSA || userInfo.IsOperator)
+{
+    <ul style="top:0px;" class="nav nav-list admin_login">
+        <li class="manageTenantAD">
+            <a href="@Url.Action("Index", "Tenant", new { area = "Admin" })">
+                <i class="menu-icon fa icon_menu-square_alt2"></i>
+                <span class="menu-text"> Manage tenants </span>
+            </a>
+            @*<b class="arrow"></b>*@
+        </li>
+
+        <li class="hsub manageUsergroupAD">
+            <a href="@Url.Action("Index", "UserGroup", new { area = "Admin" })">
+                <i class="menu-icon fa icon_id-2_alt"></i>
+                <span class="menu-text">Manage user groups</span>
+                @*<b class="arrow fa arrow_triangle-down"></b>*@
+            </a>
+            @*<b class="arrow"></b>
+                <ul class="submenu">
+                    <li class="hsub">
+                        <a href="#" class="dropdown-toggle"> <i class="menu-icon fa arrow_triangle-right"></i> Layouts <b class="arrow fa arrow_triangle-down"></b> </a> <b class="arrow"></b>
+                        <ul class="submenu">
+                            <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Top Menu </a> <b class="arrow"></b> </li>
+                            <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Default Mobile Menu </a> <b class="arrow"></b> </li>
+                            <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Mobile Menu 2 </a> <b class="arrow"></b> </li>
+                            <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Mobile Menu 3 </a> <b class="arrow"></b> </li>
+                        </ul>
+                    </li>
+                    <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Typography </a> <b class="arrow"></b> </li>
+                    <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Elements </a> <b class="arrow"></b> </li>
+                    <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Buttons &amp; Icons </a> <b class="arrow"></b> </li>
+                    <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Treeview </a> <b class="arrow"></b> </li>
+                    <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> jQuery UI </a> <b class="arrow"></b> </li>
+                    <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Nestable Lists </a> <b class="arrow"></b> </li>
+                    <li class="hsub">
+                        <a href="#" class="dropdown-toggle"> <i class="menu-icon fa arrow_triangle-right"></i> Three Level Menu <b class="arrow fa arrow_triangle-down"></b> </a> <b class="arrow"></b>
+                        <ul class="submenu">
+                            <li class=""> <a href="#"> <i class="menu-icon fa icon_star"></i> Item #1 </a> <b class="arrow"></b> </li>
+                            <li class="hsub">
+                                <a href="#" class="dropdown-toggle"> <i class="menu-icon fa icon_pencil"></i> 4th level <b class="arrow fa arrow_triangle-down"></b> </a> <b class="arrow"></b>
+                                <ul class="submenu">
+                                    <li class=""> <a href="#"> <i class="menu-icon fa  icon_plus"></i> Add Product </a> <b class="arrow"></b> </li>
+                                    <li class=""> <a href="#"> <i class="menu-icon fa icon_lightbulb"></i> View Products </a> <b class="arrow"></b> </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>*@
+        </li>
+
+        <li class="hsub manageUserAD">
+            <a href="@Url.Action("Index", "User", new { area = "Admin",id=UrlParameter.Optional })">
+                <i class="menu-icon fa icon_id_alt"></i>
+                <span class="menu-text"> Manage users </span>
+                @*<b class="arrow fa arrow_triangle-down"></b>*@
+            </a>
+            @*<b class="arrow"></b>
+                <ul class="submenu">
+                    <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Simple &amp; Dynamic </a> <b class="arrow"></b> </li>
+                    <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> jqGrid plugin </a> <b class="arrow"></b> </li>
+                </ul>*@
+        </li>
+
+        <li class="hsub manageAccessRightAD">
+            <a href="@Url.Action("AccessRight", "Roles", new { area = "Admin" })">
+                <i class="menu-icon fa icon_lock"></i>
+                <span class="menu-text"> Access rights </span>
+                <!--<b class="arrow fa arrow_triangle-down"></b>-->
+            </a>
+            <!--<b class="arrow"></b>
+            <ul class="submenu">
+                <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Form Elements </a> <b class="arrow"></b> </li>
+                <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Wizard &amp; Validation </a> <b class="arrow"></b> </li>
+                <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Wysiwyg &amp; Markdown </a> <b class="arrow"></b> </li>
+                <li class=""> <a href="#"> <i class="menu-icon fa arrow_triangle-right"></i> Dropzone File Upload </a> <b class="arrow"></b> </li>
+            </ul>-->
+        </li>
+
+    </ul>
+}
+<script type="text/javascript">
+    try { ace.settings.check('sidebar', 'collapsed') } catch (e) { }
+</script>
+

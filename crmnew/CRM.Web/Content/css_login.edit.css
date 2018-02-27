@@ -1,0 +1,5 @@
+.field-validation-error{ color:red; clear:both; line-height:24px; font-size:12px; padding:0;}
+.validation-summary-errors {color: red; clear:both; line-height:24px; font-size:12px; padding:0;}
+
+.btn_login_input { background-color:#2b60a7; line-height:21px; border:none; border-bottom:3px solid #390f3d; padding:10px 40px; font-size:16px; color:#bac3df;text-shadow: 0 1px 1px #000;-ms-box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box; -moz-transition-duration:.5s; -o-transition-duration:.5s; -webkit-transition-duration:.5s; transition-duration:.5s;}
+.btn_login_input:hover { text-decoration:none; color:#FFFFFF; -o-box-shadow:inset 0 0 0 80px rgba(0,0,0,.5); -ms-box-shadow:inset 0 0 0 80px rgba(0,0,0,.5); -moz-box-shadow:inset 0 0 0 80px rgba(0,0,0,.5); -webkit-box-shadow:inset 0 0 0 80px rgba(0,0,0,.5); box-shadow:inset 0 0 0 80px rgba(0,0,0,.5);}

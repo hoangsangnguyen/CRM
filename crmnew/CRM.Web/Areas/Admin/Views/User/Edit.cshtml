@@ -1,0 +1,363 @@
+﻿@model CRM.Admin.Models.UsersModel
+@using Kendo.Mvc.UI;
+@{
+    ViewBag.Title = "Edit";
+    bool Active = (Model.Active.HasValue) ? Model.Active.Value : false;
+    int RoleId = 0;
+    int bitMaskUser = 0;
+    string RoleName = string.Empty;
+    List<SelectListItem> listRoles = new List<SelectListItem>();
+
+    CRM.Admin.Models.UserInfo userInfo = new CRM.Admin.Models.UserInfo();
+    if (System.Web.HttpContext.Current.Session["UserInfo"] != null)
+    {
+        userInfo = System.Web.HttpContext.Current.Session["UserInfo"] as CRM.Admin.Models.UserInfo;
+    }
+
+    int maxLogin = userInfo.BitMask.Max(i => i);
+
+    if (Model.crm_Roles != null)
+    {
+        RoleId = Model.crm_UserRoles.FirstOrDefault().RoleID.Value;
+
+        var lst = Model.crm_Roles.Where(x => x.ID.Equals(RoleId));
+        RoleName = lst.FirstOrDefault().RoleName;
+        bitMaskUser = lst.Select(x => x.PermissionType).Max(x => x.Value);
+
+        if (userInfo.IsSA || userInfo.IsOperator)
+        {
+            listRoles = Model.crm_Roles.Select(x =>
+                 new SelectListItem
+                 {
+                     Selected = (x.ID == RoleId),
+                     Text = x.RoleName,
+                     Value = x.ID.ToString()
+                 }).ToList();
+        }
+        else
+        {
+            listRoles = Model.crm_Roles.Where(x => x.PermissionType <= bitMaskUser).Select(x =>
+                      new SelectListItem
+                      {
+                          Selected = (x.ID == RoleId),
+                          Text = x.RoleName,
+                          Value = x.ID.ToString()
+                      }).ToList();
+        }
+    }
+
+}
+@section styles
+{
+    <link href="~/Content/style.kendo.edit.css" rel="stylesheet" />
+    <style type="text/css">
+        #imgLogo, #imgUploaded {
+            max-height: 180px;
+        }
+    </style>
+}
+
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try { multi.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+    <ul class="breadcrumb">
+        <li><i class="multi-icon fa fa-home icon_house"></i></li>
+        <li><a href="#">Home</a></li>
+        <li><a title="" href="/admin/tenant">Manage tenants</a></li>
+        <li class="active">Edit</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" type="text">
+                <i class="multi-icon fa icon_search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+<div class="page-content">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ID)
+        <div class="page-header">
+            <ul class="btn-top pull-right">
+                <li><input type="submit" class="save_big" value="Save" /></li>
+                <li><input type="button" class="cancel_big" value="Cancel" onclick="cancel();" /></li>
+            </ul>
+            <h1>
+                Edit
+                <!--<small> <i class="multi-icon fa arrow_triangle-right"></i> bootstrap grid sizing </small>-->
+            </h1>
+
+        </div>
+    <!-- /.page-header -->
+    <!--  PAGE CONTENT BEGINS -->
+        <div class="center mt60">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="user-profile row">
+                        <div class="col-xs-12 col-sm-4 center">
+                            <div>
+                                <span class="profile-picture">
+                                    @{
+                                        string src = Url.Content("~/images/No_image_available_no_border.png");
+                                        if (!string.IsNullOrEmpty(Model.Image))
+                                        {
+                                            src = Url.Content("~/images/avatar/" + @Model.Image);
+                                        }
+                                    }
+                                    <img id="imgLogo" class="editable img-responsive  editable-empty" src="@src" alt="@Model.Username" />
+                                    <img id="imgUploaded" class="editable img-responsive  editable-empty" src="" alt="@Model.Username" style="display:none" />
+                                </span>
+                                <div class="space-12"></div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="profile-user-info profile-user-info-striped">
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100">avatar</div>
+                                    <div class="profile-info-value text-left">
+                                        @(Html.Kendo().Upload()
+                                            .Multiple(false)
+                                            .Name("file")
+                                                    .Async(a => a
+                                                        .Save("SaveLogoUpload", "user")
+                                                        .AutoUpload(true)
+                                                    )
+                                            .Events(events => events
+                                                    .Select("onSelect")
+                                                    .Success("onSuccess")
+                                                )
+                                        )
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"><i class="middle multi-icon fa social_twitter_circle bigger-190 light-blue"></i></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.TwitterURL, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"><i class="middle multi-icon fa social_facebook_circle  bigger-190 blue"></i></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.FacebookURL, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"> <i class="middle multi-icon fa social_linkedin_circle  bigger-190 blue"></i></div>
+                                    <div class="profile-info-value text-left ">
+                                        @Html.TextBoxFor(model => model.LinkedURL, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"> <i class="middle multi-icon fa social_googleplus_circle bigger-190 red"></i></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.GoogleplusURL, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="align-right clearfix mb15">
+                                <div class="wr_btn_action">
+                                    <input type="button" class="cancel_big" value="Cancel" onclick="cancelSaveLogo();" />
+                                </div>
+                                <div class="wr_btn_action">
+                                    <input type="button" class="save_big" value="Save" onclick="saveLogo();" />
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="align-right">
+                                @*<a href="@Url.Action("Index", "User", new { area = "Admin", id = Model.TenantId })" class="btn btn-app btn-sm btn-light"> </a>*@
+                                @{Html.RenderAction("CountUser", "User", new { area = "Admin", tenantId = @Model.TenantId });}
+                                <a href="#" class="btn btn-app btn-sm btn-yellow">
+                                    <span class="line-height-1 bigger-170"> 32 </span> <br>
+                                    <i class="menu-icon fa icon_piechart"></i> <span class="line-height-1 smaller-90"> Projects </span>
+                                </a> <a href="#" class="btn btn-app btn-sm btn-pink">
+                                    <span class="line-height-1 bigger-170"> 4 </span> <br>
+                                    <i class="menu-icon fa icon_tag"></i> <span class="line-height-1 smaller-90"> Tickets </span>
+                                </a> <a href="#" class="btn btn-app btn-sm btn-grey">
+                                    <span class="line-height-1 bigger-170"> 23 </span> <br>
+                                    <i class="menu-icon fa icon_contacts_alt"></i> <span class="line-height-1 smaller-90"> Contacts </span>
+                                </a> 
+                                @{Html.RenderAction("_CountLog", "Log", new { area = "Admin", tenantId = @Model.TenantId });}
+                            </div>
+                            <div class="space-12"></div>
+                            <div class="profile-user-info profile-user-info-striped">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.FullName) <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left bolder">
+                                        @Html.TextBoxFor(model => model.FullName, new { @class = "edit_input bolder" })
+                                        @Html.ValidationMessageFor(model => Model.FullName)
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.Username) <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left bolder">
+                                        @Html.TextBox("Username", Model.Username, new { @class = "edit_input bolder", @disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Password <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left">
+                                        <button class="showChange" onclick="showPopupChange(@Model.ID);" type="button" style="float:left; width:auto;">Change password</button>
+                                        @Html.Password("Password", "xxxxxxxxx", new { @style = "width:auto!important;", @class = "edit_input", @disabled = "disabled", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.DisplayName) </div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.DisplayName, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.Email) <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "edit_input" })
+                                        @Html.ValidationMessageFor(model => Model.Email)
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.Phone) </div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "edit_input" })
+                                        @Html.ValidationMessageFor(model => Model.Phone, null, new { @class = "mesValidate" })
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.Mobile) </div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.Mobile, new { @class = "edit_input" })
+                                        @Html.ValidationMessageFor(model => Model.Mobile, null, new { @class = "mesValidate" })
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.Active) </div>
+                                    <div class="profile-info-value text-left">
+                                        @*|| Model.TenantId == 0*@
+                                        @if (userInfo.ID.Equals(Model.ID) || bitMaskUser >= maxLogin || Model.TenantId == 0)
+                                        {
+                                            @Html.CheckBoxFor(model => Active, new { @disabled = "disabled" })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(model => Active)
+                                        }
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">Group</div>
+                                    <div class="profile-info-value text-left">
+                                        @if (userInfo.ID.Equals(Model.ID) || bitMaskUser >= maxLogin || Model.TenantId == 0)
+                                        {
+                                            @Html.DisplayFor(mode => RoleName);
+                                            @Html.HiddenFor(model => model.SelectedRoleIds);
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownListFor(model => model.SelectedRoleIds, listRoles, RoleId)
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="space-6"></div>*@
+
+                            <div class="space-6"></div>
+                            <div class="align-right">
+                                <div class="wr_btn_action">
+                                    <input type="button" class="cancel_big" value="Cancel" onclick="cancel();" />
+                                </div>
+                                <div class="wr_btn_action">
+                                    <input type="submit" class="save_big" value="Save" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end box table content-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- PAGE CONTENT ENDS-->
+    <!-- /.row-->
+    }
+</div>
+<div class="TenantId" style="display:none">@Model.TenantId</div>
+@section scripts{
+    <script>
+        function cancel() {
+            var siteUrl = "/admin/user/Index/" + $(".TenantId").text();
+            window.location = siteUrl;
+        }
+        // only upload image file
+        function onSelect(e) {
+            $.each(e.files, function (index, value) {
+                if (value.extension.toLowerCase() != ".png" && value.extension.toLowerCase() != ".jpg") {
+                    alert("Please insert an image file...");
+                    return;
+                }
+            });
+        };
+
+        // upload success
+        function onSuccess(e) {
+
+            var responseTxt = jQuery.parseJSON(e.XMLHttpRequest.responseText);
+
+            //var status = responseTxt.Status;
+            var srcValue = responseTxt.PictureUrl;
+
+            if (srcValue != null) {
+                $("#imgLogo").hide();
+                $("#imgUploaded").attr('src', srcValue).show();
+            } else {
+                //$("#imgUploaded").attr('src', srcValue);
+                //$("#imgLogo").hide();
+            }
+
+        }
+
+        // cancel save logo
+        function cancelSaveLogo() {
+            $("#imgUploaded").hide();
+            $("#imgLogo").show();
+        }
+        // save logo new
+        function saveLogo() {
+            var facebook = $('#FacebookURL').val();
+            var twitter = $('#TwitterURL').val();
+            var google = $('#GoogleplusURL').val();
+            var linked = $('#LinkedURL').val();
+            var userId = @Model.ID
+
+            $.ajax({
+                type: 'GET',
+                url: '/Admin/user/EditLogo',
+                data: { userId: userId, facebook: facebook, twitter: twitter, google: google, linked: linked },
+                success: function (data) {
+                    alert(data);
+                },
+                error: function () { }
+            });
+        }
+
+    </script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.manageUserCL').click();
+        });
+    </script>
+}

@@ -1,0 +1,291 @@
+﻿@model CRM.Admin.Models.UsersModel
+@using Kendo.Mvc.UI;
+@{
+    ViewBag.Title = "Add user";
+    bool Active = true;
+    List<SelectListItem> listRoles = new List<SelectListItem>();
+
+    if (Model.crm_Roles != null)
+    {
+        listRoles = Model.crm_Roles.Select(x =>
+                  new SelectListItem
+                  {
+                      Text = x.RoleName,
+                      Value = x.ID.ToString()
+                  }).ToList();
+    }
+}
+
+@section styles
+{
+    <link href="~/Content/style.kendo.edit.css" rel="stylesheet" />
+    <link href="~/Content/css.edit.css" rel="stylesheet" />
+    <style type="text/css">
+        #imgLogo, #imgUploaded {
+            max-height: 180px;
+        }
+
+        .profile-info-row select {
+            width: 99%;
+            height: 24px;
+            border: 0;
+            padding: 2px 5px !important;
+        }
+    </style>
+}
+
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try { multi.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+    <ul class="breadcrumb">
+        <li><i class="multi-icon fa fa-home icon_house"></i></li>
+        <li><a href="#">Home</a></li>
+        <li><a title="" href="/admin/tenant">Manage user</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" type="text">
+                <i class="multi-icon fa icon_search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+<div class="page-content">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.TenantId)
+        <div class="page-header">
+            <ul class="btn-top pull-right">
+                <li><input type="submit" class="save_big" value="Save" /></li>
+                <li><input type="button" class="cancel_big" value="Cancel" onclick="cancel();" /></li>
+            </ul>
+            <h1>
+                @ViewBag.Title
+            </h1>
+
+        </div>
+    <!-- /.page-header -->
+    <!--  PAGE CONTENT BEGINS -->
+        <div class="center mt60">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="user-profile row">
+                        <div class="col-xs-12 col-sm-4 center">
+                            <div>
+                                <span class="profile-picture">
+                                    <img id="imgLogo" class="editable img-responsive  editable-empty" src="@Url.Content("~/images/No_image_available_no_border.png")" alt="@Model.Image" />
+                                    <img id="imgUploaded" class="editable img-responsive  editable-empty" src="" alt="Add user" style="display:none" />
+                                </span>
+                                <div class="space-12"></div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="profile-user-info profile-user-info-striped">
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100">@Html.LabelFor(x => x.Image)</div>
+                                    <div class="profile-info-value text-left">
+                                        @(Html.Kendo().Upload()
+                                            .Multiple(false)
+                                    .Name("file")
+                                            .Async(a => a
+                                                .Save("SaveLogoUpload", "user")
+                                                .Remove("RemoveLogoUpload", "user")
+                                                .AutoUpload(true)
+                                            )
+                                    .Events(events => events
+                                            .Select("onSelect")
+                                            .Success("onSuccess")
+                                        )
+                                        )
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"><i class="middle multi-icon fa social_twitter_circle bigger-190 light-blue"></i></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.TwitterURL, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"><i class="middle multi-icon fa social_facebook_circle  bigger-190 blue"></i></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.FacebookURL, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"> <i class="middle multi-icon fa social_linkedin_circle  bigger-190 blue"></i></div>
+                                    <div class="profile-info-value text-left ">
+                                        @Html.TextBoxFor(model => model.LinkedURL, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"> <i class="middle multi-icon fa social_googleplus_circle bigger-190 red"></i></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.GoogleplusURL, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="align-right">
+                                @*<a href="@Url.Action("Index", "User", new { area = "Admin", id = Model.TenantId })" class="btn btn-app btn-sm btn-light"></a>*@
+                                @{Html.RenderAction("CountUser", "User", new { area = "Admin", tenantId = @Model.TenantId });}
+                                <a href="#" class="btn btn-app btn-sm btn-yellow">
+                                    <span class="line-height-1 bigger-170"> 32 </span> <br>
+                                    <i class="menu-icon fa icon_piechart"></i> <span class="line-height-1 smaller-90"> Projects </span>
+                                </a> <a href="#" class="btn btn-app btn-sm btn-pink">
+                                    <span class="line-height-1 bigger-170"> 4 </span> <br>
+                                    <i class="menu-icon fa icon_tag"></i> <span class="line-height-1 smaller-90"> Tickets </span>
+                                </a> <a href="#" class="btn btn-app btn-sm btn-grey">
+                                    <span class="line-height-1 bigger-170"> 23 </span> <br>
+                                    <i class="menu-icon fa icon_contacts_alt"></i> <span class="line-height-1 smaller-90"> Contacts </span>
+                                </a>
+                                @{Html.RenderAction("_CountLog", "Log", new { area = "Admin", tenantId = @Model.TenantId });}
+                            </div>
+                            <div class="space-12"></div>
+                            <div class="profile-user-info profile-user-info-striped">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.FullName) <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left bolder">
+                                        @Html.TextBoxFor(model => model.FullName, new { @class = "edit_input bolder" })
+                                        @Html.ValidationMessageFor(model => Model.FullName, null, new { @class = "mesValidate" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.Username) <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left bolder">
+                                        @Html.TextBoxFor(model => model.Username, new { @class = "edit_input bolder" })
+                                        @Html.ValidationMessageFor(model => Model.Username, null, new { @class = "mesValidate" })
+                                        <div id="message" class="mesValidate"></div>
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.Password) <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.Password("Password", Model.Password, new { @class = "edit_input" })
+                                        @Html.ValidationMessageFor(model => Model.Password, null, new { @class = "mesValidate" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Html.LabelFor(model => model.ConfirmPassword)<span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.Password("ConfirmPassword", Model.ConfirmPassword, new { @class = "edit_input" })
+                                        @Html.ValidationMessageFor(model => Model.ConfirmPassword, null, new { @class = "mesValidate" })
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.DisplayName) </div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.DisplayName, new { @class = "edit_input" })
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.Email) <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "edit_input" })
+                                        @Html.ValidationMessageFor(model => Model.Email, null, new { @class = "mesValidate" })
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.Phone) </div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "edit_input" })
+                                        @Html.ValidationMessageFor(model => Model.Phone, null, new { @class = "mesValidate" })
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.Mobile) </div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.TextBoxFor(model => model.Mobile, new { @class = "edit_input" })
+                                        @Html.ValidationMessageFor(model => Model.Mobile, null, new { @class = "mesValidate" })
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> @Html.LabelFor(model => model.Active) </div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.CheckBoxFor(model => Active)
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">Group</div>
+                                    <div class="profile-info-value text-left">
+                                        @Html.DropDownListFor(model => model.SelectedRoleIds, listRoles, "Choose group...", new { @class = "edit_input" })
+                                        @Html.ValidationMessageFor(model => model.SelectedRoleIds, null, new { @class = "mesValidate" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="align-right">
+                                <div class="wr_btn_action">
+                                    <input type="button" class="cancel_big" value="Cancel" onclick="cancel();" />
+                                </div>
+                                <div class="wr_btn_action">
+                                    <input type="submit" class="save_big" value="Save" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end box table content-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- PAGE CONTENT ENDS-->
+    <!-- /.row-->
+    }
+</div>
+<div class="TenantId" style="display:none">@Model.TenantId</div>
+@section scripts{
+    <script type="text/javascript">
+        function cancel() {
+            var siteUrl = "/admin/user/Index/" + $(".TenantId").text();
+            window.location = siteUrl;
+        }
+        // only upload image file
+        function onSelect(e) {
+            $.each(e.files, function (index, value) {
+                if (value.extension.toLowerCase() != ".png" && value.extension.toLowerCase() != ".jpg") {
+                    alert("Please insert an image file...");
+                    return;
+                }
+            });
+        };
+
+        // upload success
+        function onSuccess(e) {
+
+            var responseTxt = jQuery.parseJSON(e.XMLHttpRequest.responseText);
+
+            //var status = responseTxt.Status;
+            var srcValue = responseTxt.PictureUrl;
+
+            if (srcValue != null) {
+                $("#imgLogo").hide();
+                $("#imgUploaded").attr('src', srcValue).show();
+            } else {
+                //$("#imgUploaded").attr('src', srcValue);
+                //$("#imgLogo").hide();
+            }
+
+        }
+    </script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.manageUserCL').click();
+        });
+    </script>
+}

@@ -1,0 +1,159 @@
+﻿@model CRM.Admin.Models.TenantModel
+@using Kendo.Mvc.UI;
+@{
+    ViewBag.Title = "Detail tenant";
+    CRM.Admin.Models.UserInfo userInfo = System.Web.HttpContext.Current.Session["UserInfo"] as CRM.Admin.Models.UserInfo;
+}
+@section styles
+{
+    <style type="text/css">
+        .profile-picture img {
+            max-height: 180px;
+        }
+    </style>
+}
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try { multi.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+    <ul class="breadcrumb">
+        <li><i class="multi-icon fa fa-home icon_house"></i></li>
+        <li><a href="#">Home</a></li>
+        <li class="active">Company Profiles</li>
+    </ul>
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" type="text">
+                <i class="multi-icon fa icon_search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+</div>
+<div class="page-content">
+    <div class="page-header">
+        @if (userInfo.IsTenant)
+        {
+            <ul class="btn-top pull-right">
+                <li>@Html.ActionLink("Edit", "TenantEdit", null, new { @class = "save_big" })</li>
+            </ul>
+        }
+        <h1>
+            @Model.TenantName
+        </h1>
+
+    </div>
+    <div class="center mt60">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="user-profile row">
+                    <div class="col-xs-12 col-sm-4 center hover_edit_box">
+                        @*<ul class="wr_mn_hover">
+                                <li><a class="ihv_edit" href="#" title="Edit">edit</a></li>
+                                <li><a class="ihv_reload" href="#" title="Reload">Reload</a></li>
+                                <li><a class="ihv_save" href="#" title="Save">Save</a></li>
+                            </ul>*@
+                        <div>
+                            <span class="profile-picture"><img class="editable img-responsive  editable-empty" src="@Url.Content(Model.CompanyLogo)" alt="@Model.TenantName" /></span>
+                            <div class="space-12"></div>
+                            <div class="width-70 label label-info label-xlg arrowed-in arrowed-in-right">
+                                <div class="inline position-relative"> <a class="user-title-label" href="#"> <i class="multi-icon fa icon_pin orange"></i> &nbsp; <span class="white bolder">@Model.TenantName</span> </a> </div>
+                            </div>
+                        </div>
+                        <div class="space-6"></div>
+                        <div class="profile-contact-info">
+                            <div class="profile-contact-links"> <i class="multi-icon fa icon_globe-2 bigger-125 blue"></i> URL: &nbsp;<a href="#">@Html.DisplayFor(x => x.Website) </a> </div>
+                            <div class="space-6"></div>
+                            <div class="profile-social-links align-center">
+                                <a data-original-title="Visit my Facebook" title="" class="tooltip-info" href="@Html.DisplayFor(x=>x.FacebookURL)"> <i class="middle multi-icon fa social_facebook_circle  bigger-190 blue"></i> </a>
+                                <a data-original-title="Visit my Twitter" title="" class="tooltip-info" href="@Html.DisplayFor(x=>x.TwitterURL)"> <i class="middle multi-icon fa social_twitter_circle bigger-190 light-blue"></i> </a>
+                                <a data-original-title="Visit my Google plus" title="" class="tooltip-error" href="@Html.DisplayFor(x=>x.GoogleplusURL)"> <i class="middle multi-icon fa social_googleplus_circle bigger-190 red"></i> </a>
+                                <a data-original-title="Visit my Linkedin" title="" class="tooltip-error" href="@Html.DisplayFor(x=>x.LinkedURL)"> <i class="middle multi-icon fa social_linkedin_circle  bigger-190 blue"></i> </a>
+                            </div>
+                            <div class="space-6"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="align-right">
+                            @{Html.RenderAction("CountUser", "User", new { area = "Admin", tenantId = @Model.TenantId });}
+                            <a href="#" class="btn btn-app btn-sm btn-yellow">
+                                <span class="line-height-1 bigger-170"> 32 </span> <br>
+                                <i class="menu-icon fa icon_piechart"></i> <span class="line-height-1 smaller-90"> Projects </span>
+                            </a> <a href="#" class="btn btn-app btn-sm btn-pink">
+                                <span class="line-height-1 bigger-170"> 4 </span> <br>
+                                <i class="menu-icon fa icon_tag"></i> <span class="line-height-1 smaller-90"> Tickets </span>
+                            </a> <a href="#" class="btn btn-app btn-sm btn-grey">
+                                <span class="line-height-1 bigger-170"> 23 </span> <br>
+                                <i class="menu-icon fa icon_contacts_alt"></i> <span class="line-height-1 smaller-90"> Contacts </span>
+                            </a>
+                            @*@{Html.RenderAction("_CountLog", "Log", new { area = "Admin", tenantId = @Model.TenantId });}*@
+                        </div>
+                        <div class="space-12"></div>
+                        <div class="profile-user-info profile-user-info-striped">
+                            @*<ul class="wr_mn_hover">
+                                    <li><a class="ihv_edit" href="#" title="Edit">edit</a></li>
+                                    <li><a class="ihv_reload" href="#" title="Reload">Reload</a></li>
+                                    <li><a class="ihv_save" href="#" title="Save">Save</a></li>
+                                </ul>*@
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.DisplayNameFor(x => x.TenantName) <span class="bigger-120 red">*</span></div>
+                                <div class="profile-info-value text-left bolder">@Html.DisplayFor(x => x.TenantName)</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.DisplayNameFor(x => x.TenantNameAlias) <span class="bigger-120 red">*</span></div>
+                                <div class="profile-info-value text-left bolder">@Html.DisplayFor(x => x.TenantNameAlias)</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.DisplayNameFor(x => x.Email) </div>
+                                <div class="profile-info-value text-left">@Html.DisplayFor(x => x.Email)</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.DisplayNameFor(x => x.PostedAddress)</div>
+                                <div class="profile-info-value text-left">@Html.DisplayFor(x => x.PostedAddress)</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.DisplayNameFor(x => x.VisitingAddress)</div>
+                                <div class="profile-info-value text-left">@Html.DisplayFor(x => x.VisitingAddress)</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.DisplayNameFor(x => x.CountryId)</div>
+                                <div class="profile-info-value text-left">@Html.DisplayFor(x => x.CountryName)</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.DisplayNameFor(x => x.Fax)</div>
+                                <div class="profile-info-value text-left">@Html.DisplayFor(x => x.Fax)</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.DisplayNameFor(x => x.OrgNumber)</div>
+                                <div class="profile-info-value text-left">@Html.DisplayFor(x => x.OrgNumber)</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.DisplayNameFor(x => x.CreatedDate)</div>
+                                <div class="profile-info-value text-left">@Html.DisplayFor(x => x.CreatedDate)</div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> @Html.DisplayNameFor(x => x.Information)</div>
+                                <div class="profile-info-value text-left">@Html.DisplayFor(x => x.Information)</div>
+                            </div>
+                        </div>
+                        <div class="space-6"></div>
+                        <div class="profile-user-info profile-user-info-striped">
+                            @{Html.RenderAction("_ContactCompanyProfile", "User", new { area = "Admin", userId = @Model.AssignedUserId });}
+                        </div>
+                        <div class="space-6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            if ($('.companyProfile').size() > 0) {
+                $('.companyProfile').addClass('active');
+            }
+        });
+    </script>
+}

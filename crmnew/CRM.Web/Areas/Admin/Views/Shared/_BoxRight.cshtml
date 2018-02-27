@@ -1,0 +1,20 @@
+﻿@{
+    var _userInfo = System.Web.HttpContext.Current.Session["UserInfo"] as CRM.Admin.Models.UserInfo;
+}
+<div class="align-right">
+    <a href="@Url.Action("Index", "User", new { area = "Admin", id = _userInfo.TenanID })" class="btn btn-app btn-sm btn-light">
+        <span class="line-height-1 bigger-170 blue"> 1,411 </span> <br>
+        <i class="menu-icon fa icon_group"></i> <span class="line-height-1 smaller-90"> Users </span>
+    </a> <a href="#" class="btn btn-app btn-sm btn-yellow">
+        <span class="line-height-1 bigger-170"> 32 </span> <br>
+        <i class="menu-icon fa icon_piechart"></i> <span class="line-height-1 smaller-90"> Projects </span>
+    </a> <a href="#" class="btn btn-app btn-sm btn-pink">
+        <span class="line-height-1 bigger-170"> 4 </span> <br>
+        <i class="menu-icon fa icon_tag"></i> <span class="line-height-1 smaller-90"> Tickets </span>
+    </a> <a href="#" class="btn btn-app btn-sm btn-grey">
+        <span class="line-height-1 bigger-170"> 23 </span> <br>
+        <i class="menu-icon fa icon_contacts_alt"></i> <span class="line-height-1 smaller-90"> Contacts </span>
+    </a>
+
+    @{Html.RenderAction("CountLog", "Log");}
+</div>

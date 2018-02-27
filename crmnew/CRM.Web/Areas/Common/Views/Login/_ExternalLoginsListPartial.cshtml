@@ -1,0 +1,53 @@
+﻿@using Microsoft.Owin.Security
+
+@*<h4>Use another service to log in.</h4>*@
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    if (loginProviders.Count() == 0)
+    {
+        <div>
+            <p>There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
+            for details on setting up this ASP.NET application to support logging in via external services.</p>
+        </div>
+    }
+    else
+    {
+        string action = Model.Action;
+        string returnUrl = Model.ReturnUrl;
+        using (Html.BeginForm(action, "Login", new { ReturnUrl = returnUrl }, FormMethod.Post, new { id = "ext_login" }))
+        {
+            @Html.AntiForgeryToken()
+            <div id="socialLoginList">
+                <p>
+                @foreach (AuthenticationDescription p in loginProviders)
+                {
+                   
+                    if (p.Caption.ToLower() == "facebook")
+                    {
+                        <a class="facebook" ><button type="submit" class="btn_so" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account"><i class="social_facebook"></i></button></a>
+                    }
+                    if (p.Caption.ToLower() == "twitter")
+                    {
+
+                        <a class="twitter" id="@p.AuthenticationType" href="javascript:;"><button type="submit" class="btn_so" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account"><i class="social_twitter"></i></button></a>
+                    }
+                    if (p.Caption.ToLower() == "google")
+                    {
+                        <a class="google-plus" id="@p.AuthenticationType" href="javascript:;"><button type="submit" class="btn_so" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account"><i class="social_googleplus"></i></button></a>
+
+                    }
+                    if (p.Caption.ToLower() == "linkedin")
+                    {
+                        <a class="linked-in"><button type="submit" class="btn_so" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account"><i class="social_linkedin"></i></button></a>
+                    }
+                    if (p.Caption.ToLower() == "microsoft")
+                    {
+                        <a class="microsoft"><button type="submit" class="btn_so" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account"><i class="social_microsoft"></i></button></a>
+                    }
+
+                }
+                </p>
+            </div>
+        }
+    }
+}
