@@ -1,0 +1,577 @@
+﻿@*@model CRM.Entities.Models.LclImpModel
+
+        @{
+            ViewBag.Title = "AddEdit";
+            Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+        }
+
+    <h2>AddEdit</h2>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>LclImpModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JobNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.JobNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Created, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Created, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Created, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Eta, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Eta, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Eta, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MBLNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MBLNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MBLNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.POLId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.POLId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.POLId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Commodity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Commodity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Commodity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MBLType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MBLType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MBLType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ETDDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ETDDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ETDDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ETDType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ETDType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ETDType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContactId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContactId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SCName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SCName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SCName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vessel, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Vessel, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Vessel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PODId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PODId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PODId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PackageAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PackageAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PackageAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PackageType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PackageType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PackageType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Service, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Service, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Service, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isFinish, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isFinish)
+                    @Html.ValidationMessageFor(model => model.isFinish, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CoLoaderId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CoLoaderId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CoLoaderId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AgentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AgentId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AgentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Voyage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Voyage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Voyage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Delivery, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Delivery, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Delivery, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GW, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GW, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GW, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CBM, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CBM, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CBM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+        }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+@using CRM.Admin
+@using Kendo.Mvc.UI
+@using CRM.Admin.Models
+@using CRM.Entities.Models
+@model CRM.Entities.Models.LclImpModel
+@{
+    ViewBag.Title = "AddEdit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    UserInfo userInfo = System.Web.HttpContext.Current.Session["UserInfo"] as UserInfo;
+    string path = "/Tenants/" + userInfo.TenantAlias + "/";
+    string urlImage = "";
+    //if (Model.CustomerId > 0)
+    //{
+    //    urlImage = Model.CustomerLogo == string.Empty ? path + "default.png" : path + Model.CustomerLogo;
+    //}
+    //else
+    //{
+    //    urlImage = path + "default.png";
+    //}
+}
+<head>
+    <title></title>
+    <link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
+
+
+</head>
+
+<div id="breadcrumbs" class="breadcrumbs">
+    <script type="text/javascript">
+        try { multi.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+    <ul class="breadcrumb">
+        <li><i class="multi-icon fa fa-home icon_house"></i></li>
+        <li><a href="#">@Caching.GetValue("Global.Home")</a></li>
+        <li><a href="#" title="">LcL Import</a></li>
+        <li class="active">@Caching.GetValue("Customer.Customer")</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <div id="nav-search" class="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" autocomplete="off" id="nav-search-input" class="nav-search-input" placeholder="Search ...">
+                <i class="multi-icon fa icon_search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+<div class="page-content">
+    <div class="page-header">
+        <ul class="btn-top pull-right">
+            <li><a href="#" class="save_big">@Caching.GetValue("Global.Save")</a></li>
+            <li><a href="#" class="cancel_big">@Caching.GetValue("Global.Cancel")</a></li>
+        </ul>
+        <h1>
+            @*@Caching.GetValue("Customer.Customer")*@
+            Lcl Import
+            <!--<small> <i class="multi-icon fa arrow_triangle-right"></i> bootstrap grid sizing </small>-->
+        </h1>
+
+    </div>
+    <!-- /.page-header -->
+    <!--  PAGE CONTENT BEGINS -->
+
+    <div class="center mt60">
+        <div class="row">
+            <div class="col-xs-12">
+                <form id="frmLcLImp" action="">
+                    @Html.AntiForgeryToken()
+                    <div class="user-profile row">
+                        <div class="col-xs-12 col-sm-4 center">
+                            <div>
+                                <span class="profile-picture"><img alt="@Html.Raw(Model.SCName)" src="@urlImage" class="editable img-responsive  editable-empty" id="imgUploaded"></span>
+                                <div class="space-12"></div>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="profile-user-info profile-user-info-striped">
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100">@Caching.GetValue("Global.Avatar")</div>
+                                    <div class="profile-info-value text-left">
+                                        @(Html.Kendo().Upload()
+                                                                                                                        .Multiple(false)
+                                                                                                                        .Name("file")
+                                                                                                                        .Async(a => a
+                                                                                                                        .Save("SaveLogoUpload", "customer")
+                                                                                                                        .Remove("RemoveLogoUpload", "customer")
+                                                                                                                        .AutoUpload(true)
+                                                                                                                        )
+                                                                                                                        .Events(events => events
+                                                                                                                        .Select("onSelect")
+                                                                                                                        .Success("onSuccess")
+                                                                                                                        )
+                                        )
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="profile-user-info profile-user-info-striped">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100">Country <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left bolder">
+                                        <input type="text" name="searchCountry" id="searchCountry" class="edit_input bolder">
+                                        @*@(Html.Kendo().ComboBox()
+                                                            .Name("fabric")
+                                                            .Filter("contains")
+                                                            .Placeholder("Select fabric...")
+                                                            .DataTextField("Text")
+                                                            .DataValueField("Value")
+                                                            .BindTo(new List<SelectListItem>() {
+                                                                                          new SelectListItem() {
+                                                                                            Text = "Cotton", Value = "1"
+                                                                                          },
+                                                                                          new SelectListItem() {
+                                                                                            Text = "Polyester", Value = "2"
+                                                                                          },
+                                                                                          new SelectListItem() {
+                                                                                            Text = "Cotton/Polyester", Value = "3"
+                                                                                          },
+                                                                                          new SelectListItem() {
+                                                                                            Text = "Rib Knit", Value = "4"
+                                                                                          }
+                                                            })
+                                                            .SelectedIndex(3)
+                                                            .Suggest(true)
+                                                            .HtmlAttributes(new { style = "width:100%;" })
+                                        )*@
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100">Job No <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left bolder">
+                                        <input type="text" id="JobNo" name="JobNo" value="@Html.Raw(Model.JobNo)" class="edit_input bolder">
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">@Caching.GetValue("Tenant.CountryName")</div>
+                                    <div class="profile-info-value text-left">
+                                        <select id="CountryId" name="CountryId" class="edit_input">
+                                            <option value="0">Choose one item...</option>
+                                            @foreach (crm_Countries item in Model.ListCountry)
+                                            {
+                                                <option value="@item.Id" @if (Model.CountryId == item.Id) { @Html.Raw("selected='selected' ") }>@item.CountryName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"> Created <span class="bigger-120 red">*</span></div>
+                                    <div class="profile-info-value text-left bolder">
+                                        <input type="text" id="Created" name="Created" value="@Html.Raw(Model.Created)" class="edit_input bolder">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100"> Eta </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="Eta" name="Eta" value="@Html.Raw(Model.Eta)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100">MBL number </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="MBLNo" name="MBLNo" value="@Html.Raw(Model.MBLNo)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100">POLId</div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" name="POLId" id="POLId" value="@Html.Raw(Model.POLId)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name w100">Commodity</div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="Commodity" name="Commodity" value="@Model.Commodity" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> MBLType </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="MBLType" name="MBLType" value="@Html.Raw(Model.MBLType)" class="edit_input">
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> ETDDate </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="ETDDate" name="ETDDate" value="@Html.Raw(Model.ETDDate)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> ETDType </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="ETDType" name="ETDType" value="@Html.Raw(Model.ETDType)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> ContactId </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="ContactId" name="ContactId" value="@Html.Raw(Model.ContactId)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> SCName </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="SCName" name="SCName" value="@Html.Raw(Model.SCName)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Vessel </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="Vessel" name="Vessel" value="@Html.Raw(Model.Vessel)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> PODId </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="PODId" name="PODId" value="@Html.Raw(Model.PODId)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> PackageAmount </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="PackageAmount" name="PackageAmount" value="@Html.Raw(Model.PackageAmount)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> PackageType </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="PackageType" name="PackageType" value="@Html.Raw(Model.PackageType)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Service </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="Service" name="Service" value="@Html.Raw(Model.Service)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> isFinish </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="isFinish" name="isFinish" value="@Html.Raw(Model.isFinish)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> CoLoaderId </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="CoLoaderId" name="CoLoaderId" value="@Html.Raw(Model.CoLoaderId)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> AgentId </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="AgentId" name="AgentId" value="@Html.Raw(Model.AgentId)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Voyage </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="Voyage" name="Voyage" value="@Html.Raw(Model.Voyage)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Delivery </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="Delivery" name="Delivery" value="@Html.Raw(Model.Delivery)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> GW </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="GW" name="GW" value="@Html.Raw(Model.GW)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> CBM </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="CBM" name="CBM" value="@Html.Raw(Model.CBM)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Note </div>
+                                    <div class="profile-info-value text-left">
+                                        <input type="text" id="Note" name="Note" value="@Html.Raw(Model.Note)" class="edit_input">
+                                    </div>
+                                </div>
+                                <div class="space-6"></div>
+                                <div class="align-right">
+                                    <div class="wr_btn_action">
+                                        <input type="button" value="@Caching.GetValue(" Global.Cancel")" class="cancel_big">
+                                    </div>
+                                    <div class="wr_btn_action">
+                                        <input type="button" value="@Caching.GetValue(" Global.Save")" class="save_big">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end box table content-->
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- PAGE CONTENT ENDS-->
+    <!-- /.row-->
+</div>
+<!-- /.page-content -->
+@section scripts{
+    <script type="text/javascript">
+    // only upload image file
+    function onSelect(e) {
+        $.each(e.files, function (index, value) {
+            if (value.extension.toLowerCase() != ".png" && value.extension.toLowerCase() != ".jpg") {
+                /**/
+                alert("@Caching.GetValue("LcLImp.RequireRightExtension")");
+    /**/
+    return;
+}
+});
+};
+
+// upload success
+function onSuccess(e) {
+
+var responseTxt = jQuery.parseJSON(e.XMLHttpRequest.responseText);
+
+//var status = responseTxt.Status;
+var srcValue = responseTxt.PictureUrl;
+
+if (srcValue != null) {
+$("#imgLogo").hide();
+$("#imgUploaded").attr('src', srcValue).show();
+$('#CustomerLogo').val(srcValue.FileName);
+} else {
+//$("#imgUploaded").attr('src', srcValue);
+//$("#imgLogo").hide();
+}
+
+}
+    </script>
+    <script src="~/Areas/Admin/Scripts/lclimp.js"></script>
+
+}
