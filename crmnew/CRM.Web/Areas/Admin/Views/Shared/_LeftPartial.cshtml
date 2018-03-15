@@ -33,21 +33,43 @@
             </a>
         </li>
         <li class="hsub manageCustomers">
-            <a href="#">
+            <a href="@Url.Action("Index", "Customer", new { area = "Admin" })">
                 <i class="menu-icon fa icon_id_alt"></i>
                 <span class="menu-text"> Customers </span>
             </a>
         </li>
+
+        <li class="hsub manageCountries">
+            <a href="@Url.Action("Index", "Country", new { area = "Admin" })">
+                <i class="menu-icon fa icon_id_alt"></i>
+                <span class="menu-text"> Country </span>
+            </a>
+        </li>
+
         <li class="hsub manageContacts">
             <a href="#">
                 <i class="menu-icon fa icon_id_alt"></i>
                 <span class="menu-text"> Contacts </span>
             </a>
         </li>
-         <li class="hsub manageProjects">
+        <li class="hsub manageProjects">
             <a href="#">
                 <i class="menu-icon fa icon_id_alt"></i>
                 <span class="menu-text"> Projects </span>
+            </a>
+        </li>
+
+        <li class="hsub manageAirExp">
+            <a href="@Url.Action("Index", "AirExp", new { area = "Admin" })">
+                <i class="menu-icon fa icon_id_alt"></i>
+                <span class="menu-text"> Air-Exp </span>
+            </a>
+        </li>
+
+        <li class="hsub manageLcLImp">
+            <a href="@Url.Action("Index", "LcLImp", new { area = "Admin" })">
+                <i class="menu-icon fa icon_id_alt"></i>
+                <span class="menu-text"> LcL-Imp </span>
             </a>
         </li>
     }

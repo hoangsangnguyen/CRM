@@ -15,22 +15,27 @@ namespace CRM.Entities.Models
 
         static CRMTenantContext()
         {
-            Database.SetInitializer<CRMTenantContext>(null);
+            Database.SetInitializer<CRMTenantContext>(new CreateDatabaseIfNotExists<CRMTenantContext>());
         }
 
         public CRMTenantContext()
             : base("Name=CRMTenantContext")
         {
+            //System.Data.Entity.Database.SetInitializer<CRMTenantContext>(new DropCreateDatabaseIfModelChanges<CRMTenantContext>());
         }
 
 
         public DbSet<crm_Customers> Customers { get; set; }
         public DbSet<crm_Contacts> Contacts { get; set; }
+        public DbSet<crm_Countries> Countries { get; set; }
+        public DbSet<crm_LcLImp> LcLImp { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new CustomersMap());
+            modelBuilder.Configurations.Add(new crm_CustomersMap());
             modelBuilder.Configurations.Add(new crm_ContactsMap());
+            modelBuilder.Configurations.Add(new crm_CountriesMap());
+            modelBuilder.Configurations.Add(new crm_LcLImpMap());
         }
 
         public static string GetConnectionString()

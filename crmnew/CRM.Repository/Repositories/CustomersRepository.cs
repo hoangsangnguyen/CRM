@@ -113,8 +113,12 @@ namespace CRM.Repository.Repositories
             //Variables
             bool isExist = false;
             crm_Customers customer = null;
-
-            customer = repository.Queryable().Where(x =>x.CustomerId!=id && x.OrgNumber==orgNumber).FirstOrDefault();
+            try
+            {
+                customer = repository.Queryable().Where(x => x.CustomerId != id && x.OrgNumber == orgNumber).FirstOrDefault();
+            } catch (Exception e)
+            {
+            }
 
             isExist = customer == null ? true : false;
             return isExist;

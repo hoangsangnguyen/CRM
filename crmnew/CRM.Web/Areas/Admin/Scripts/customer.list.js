@@ -42,7 +42,7 @@
 
 function LoadDataGrid() {
     $.ajax({
-        url: "/Admin/Customer/RenderGridUserGroup",
+        url: "/Admin/Customer/RenderGridUserGroupp",
         type: "POST",
         dataType: "json",
         cache: false,

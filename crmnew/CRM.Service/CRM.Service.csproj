@@ -68,11 +68,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirExpService.cs" />
     <Compile Include="CustomerService.cs" />
+    <Compile Include="IAirExpService.cs" />
     <Compile Include="ICustomerService.cs" />
+    <Compile Include="ILcLImpService.cs" />
     <Compile Include="IPhraseLanguageService.cs" />
     <Compile Include="IContactService.cs" />
     <Compile Include="IPhraseService.cs" />
+    <Compile Include="LcLImpService.cs" />
     <Compile Include="LogActionService.cs" />
     <Compile Include="CountryService.cs" />
     <Compile Include="ILogActionService.cs" />

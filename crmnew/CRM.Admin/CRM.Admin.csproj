@@ -42,10 +42,10 @@
       <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.1-beta1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.1-beta1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Kendo.Mvc">
       <HintPath>..\Libs\Kendo.Mvc.dll</HintPath>
@@ -158,7 +158,7 @@
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.0-rc\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -182,15 +182,22 @@
     <Compile Include="Caching.cs" />
     <Compile Include="Common\ContactLoginController.cs" />
     <Compile Include="Common\LoginController.cs" />
+    <Compile Include="Controllers\AirExpController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\LcLImpController.cs" />
     <Compile Include="Controllers\UserGroupController.cs" />
     <Compile Include="Extensions\LocalizedDisplayName.cs" />
+    <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\Airports.cs" />
+    <Compile Include="Models\CoLoaderModel.cs" />
     <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\CustomsDeclaration.cs" />
+    <Compile Include="Models\LcLImpModel.cs" />
+    <Compile Include="Models\PortModel.cs" />
     <Compile Include="Models\UsersModel.cs" />
     <Compile Include="Models\Security\BaseViewPage.cs" />
     <Compile Include="Models\Security\CustomAuthorizeAttribute.cs" />

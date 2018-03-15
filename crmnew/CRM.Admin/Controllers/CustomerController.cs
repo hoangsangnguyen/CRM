@@ -50,7 +50,9 @@ namespace CRM.Admin.Controllers
         #endregion
 
         #region Constructors
-        public CustomerController([Dependency("CRMNAUnitOfWork")]  IUnitOfWork unitOfWork, [Dependency("CRMNATenantUnitOfWork")] IUnitOfWork tenantUnitOfWork, ICustomerService customerService, ICountryService countryService,IContactService contactService,ILogService logService)
+        public CustomerController([Dependency("CRMNAUnitOfWork")]  IUnitOfWork unitOfWork, 
+            [Dependency("CRMNATenantUnitOfWork")] IUnitOfWork tenantUnitOfWork,
+            ICustomerService customerService, ICountryService countryService, IContactService contactService, ILogService logService)
         {
             _unitOfWork = unitOfWork;
             _tenantUnitOfWork = tenantUnitOfWork;
@@ -62,6 +64,15 @@ namespace CRM.Admin.Controllers
         #endregion
 
         #region Utilities
+
+        public JsonResult GetSearchCountries(string search)
+        {
+            List<crm_Countries> list = _countryService.GetAllCountries();
+            var result = (from N in list
+                          where N.CountryName.StartsWith(search)
+                          select new crm_Countries { Id = N.Id, CountryName = N.CountryName });
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult _ViewListCustomers()
         {
@@ -100,6 +111,7 @@ namespace CRM.Admin.Controllers
             ColumnRoleModel colLogo = new ColumnRoleModel() { title = "Logo", field = "CustomerLogo", template = "<div style='text-align:center'><img src='#=CustomerLogo#' width='48px' height='48px' /></div>" }; model.column.Add(colLogo);
             ColumnRoleModel colOrgNumber = new ColumnRoleModel() { title = "OrgNumber", field = "OrgNumber" }; model.column.Add(colOrgNumber);
             ColumnRoleModel colCreatedDate = new ColumnRoleModel() { title = "CreatedDate", field = "CreatedDate", template = "#=kendo.toString(new Date(CreatedDate),'yyyy.MM.dd')#" }; model.column.Add(colCreatedDate);
+
             //model.total = _roleService.GetAllRoles(usInfo.IsTenant, false, usInfo.TenanID).Count();
             //var _lst = _roleService.GetAllRoles(usInfo.IsTenant, false, usInfo.TenanID).Count();
             #endregion
@@ -342,13 +354,16 @@ namespace CRM.Admin.Controllers
                         using (TransactionScope scope = new TransactionScope())
                         {
                             _customerService.Insert(customer);
-                            _tenantUnitOfWork.SaveChanges();
+                            _unitOfWork.SaveChanges();
+                            //_tenantUnitOfWork.SaveChanges();
                             
                             if (contact != null)
                             {
                                 contact.CustomerId = customer.CustomerId;
                                 _contactService.Insert(contact);
-                                _tenantUnitOfWork.SaveChanges();
+                                _unitOfWork.SaveChanges();
+
+                                //_tenantUnitOfWork.SaveChanges();
                             }
                             scope.Complete();
                         }
@@ -358,7 +373,9 @@ namespace CRM.Admin.Controllers
                         using (TransactionScope scope = new TransactionScope())
                         {
                             _customerService.Update(customer);
-                            _tenantUnitOfWork.SaveChanges();
+                            _unitOfWork.SaveChanges();
+
+                            //_tenantUnitOfWork.SaveChanges();
                             if (contact != null)
                             {
                                 contact.CustomerId = customer.CustomerId;
@@ -370,7 +387,9 @@ namespace CRM.Admin.Controllers
                                 {
                                     _contactService.Insert(contact);
                                 }
-                                _tenantUnitOfWork.SaveChanges();
+                                _unitOfWork.SaveChanges();
+
+                                //_tenantUnitOfWork.SaveChanges();
                             }
                             scope.Complete();
                         }
@@ -433,10 +452,14 @@ namespace CRM.Admin.Controllers
                     {
                         _contactService.Delete(item);
                     }
-                    _tenantUnitOfWork.SaveChanges();
+                    _unitOfWork.SaveChanges();
+
+                    //_tenantUnitOfWork.SaveChanges();
 
                     _customerService.Delete(customer);
-                    _tenantUnitOfWork.SaveChanges();
+                    _unitOfWork.SaveChanges();
+
+                    //_tenantUnitOfWork.SaveChanges();
 
                     scope.Complete();
                 }

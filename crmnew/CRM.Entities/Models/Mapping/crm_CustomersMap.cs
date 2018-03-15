@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace CRM.Entities.Models.Mapping
 {
-    public class CustomersMap : EntityTypeConfiguration<crm_Customers>
+    public class crm_CustomersMap : EntityTypeConfiguration<crm_Customers>
     {
-        public CustomersMap()
+        public crm_CustomersMap()
         {
             // Primary Key
             this.HasKey(t => t.CustomerId);

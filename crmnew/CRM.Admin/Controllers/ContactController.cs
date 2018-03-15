@@ -27,10 +27,11 @@ namespace CRM.Admin.Controllers
         private readonly IUnitOfWork _contactUnitOfWork;
         private UserInfo _userInfo = System.Web.HttpContext.Current.Session["UserInfo"] as UserInfo;
         private static LogoModel _logoModel = new LogoModel();
-        public ContactController([Dependency("CRMNAUnitOfWork")]   IUnitOfWork unitOfWork, [Dependency("CRMNATenantUnitOfWork")] IUnitOfWork contactUnitOfWork, IContactService contactService, ICustomerService customerService)
+        public ContactController([Dependency("CRMNAUnitOfWork")]   IUnitOfWork unitOfWork,
+           IContactService contactService, ICustomerService customerService)
         {
             this._unitOfWork = unitOfWork;
-            this._contactUnitOfWork = contactUnitOfWork;
+           // this._contactUnitOfWork = contactUnitOfWork;
             this._contactService = contactService;
             this._customerService = customerService;
         }

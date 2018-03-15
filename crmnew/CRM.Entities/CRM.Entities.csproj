@@ -33,10 +33,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.1-beta1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.1-beta1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Data.Edm, Version=5.6.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -106,7 +106,9 @@
     <Compile Include="Extensions\EntityHelpers.cs" />
     <Compile Include="Models\CRMTenantContext.cs" />
     <Compile Include="Models\CRMContext.cs" />
+    <Compile Include="Models\crm_AirExp.cs" />
     <Compile Include="Models\crm_Contacts.cs" />
+    <Compile Include="Models\crm_LcLImp.cs" />
     <Compile Include="Models\crm_LogAction.cs" />
     <Compile Include="Models\crm_PhraseLanguages.cs" />
     <Compile Include="Models\crm_Phrases.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="Models\crm_Users.cs" />
     <Compile Include="Models\crm_Customers.cs" />
     <Compile Include="Models\Mapping\crm_ContactsMap.cs" />
+    <Compile Include="Models\Mapping\crm_LcLImpMap.cs" />
     <Compile Include="Models\Mapping\crm_PhraseLanguagesMap.cs" />
     <Compile Include="Models\Mapping\crm_PhrasesMap.cs" />
     <Compile Include="Models\Mapping\crm_LogActionMap.cs" />

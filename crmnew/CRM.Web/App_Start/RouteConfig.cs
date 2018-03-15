@@ -40,9 +40,15 @@ namespace CRM.Web
                              new { action = "TenantDetail", controller = "Common", 
                                  adminContrains, 
                                  adminTokens});
-
-
-
+            //routes.MapRoute("Admin_Country", "admin/country",
+            //                 new
+            //                 {
+            //                     action = "Create",
+            //                     controller = "Country",
+            //                     adminContrains,
+            //                     adminTokens
+            //                 });
+            
             #endregion           
 
             #region Common area

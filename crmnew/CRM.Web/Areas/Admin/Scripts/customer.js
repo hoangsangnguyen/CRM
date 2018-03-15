@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function () {
     $('.save_big').click(function () {
-        if ($.trim($('#CustomerName').val()) == "" || $.trim($('#Email').val()) == "Email") {
+        if ($.trim($('#CustomerName').val()) === "" || $.trim($('#Email').val()) === "Email") {
             ConfirmMessageBox(null, 'Please input required fields!', function () {
                 $('#Name').focus();
             }, false);
