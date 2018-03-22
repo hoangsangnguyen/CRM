@@ -308,8 +308,17 @@ namespace CRM.Admin.Controllers
                 using (TransactionScope scope = new TransactionScope())
                 {
                     _tenantUnitOfWork.SaveChanges();
-
-                    _lcLImpService.Delete(lclImp);
+                    
+                    foreach (crm_LcLImp item in _lcLImpService.GetAllLcLImp())
+                    {
+                        if (item.Id == lclImp.Id)
+                        {
+                            _lcLImpService.Delete(item);
+                            break;
+                        }
+                    }
+                       
+                   // _lcLImpService.Delete(lclImp);
                     _tenantUnitOfWork.SaveChanges();
 
                     scope.Complete();
