@@ -15,7 +15,7 @@ using System.Transactions;
 using CRM.Core;
 using System.IO;
 using Microsoft.Practices.Unity;
-using static System.Net.Mime.MediaTypeNames;
+//using System.Net.Mime.MediaTypeNames;
 
 namespace CRM.Admin.Controllers
 {
