@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CRM.Admin.Models;
+using WebSupergoo.ABCpdf8;
 
 namespace CRM.Web.Controllers
 {
@@ -35,6 +36,12 @@ namespace CRM.Web.Controllers
             }
 
         }
+        //private byte[] CreatePdfContent()
+        //{
+        //Doc doc = new Doc();
+        //    return new []byte ();
+        //doc.Read()
+        //}
 
 
         public ActionResult About()
