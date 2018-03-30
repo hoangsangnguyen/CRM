@@ -29,7 +29,7 @@ $(document).ready(function () {
     $("#searchCountry").kendoComboBox({
         //dataTextField: "CountryName",
         //dataValueField: "CountryName",
-       
+
         //dataSource {
         //    "transport": {
         //        "read": {
@@ -68,13 +68,20 @@ $(document).ready(function () {
                 //$('.msgInfo').text(data.Message);
                 //$('#myModal').modal('show');
 
-                isSuccess = data.isSuccess;
-                ConfirmMessageBox(null, data.Message, function () {
-                    if (isSuccess = "1")
-                        document.location = "/Admin/LclImp";
-                }, false);
+                isSuccess = data.IsSuccess;
+                alert(data.Message);
+                if (issuccess == "1") {
+
+                    document.location = "/admin/lclimp";
+                }
+
+                //ConfirmMessageBox(null, data.Message, function () {
+                //    if (isSuccess == "1") {
+                //        document.location = "/Admin/LclImp";
+                //       // complete: function () { }
+                //    }
+                //}, false);
             },
-            complete: function () { }
         });
     });
 
@@ -86,7 +93,7 @@ $(document).ready(function () {
     //$('#searchCountry').autocomplete({
     //    source: "LcLImp/GetSearchCountries", minLength: 2
     //});
-    
+
 
 })
 

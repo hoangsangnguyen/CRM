@@ -18,7 +18,6 @@ using CRM.Entities.Models;
 using System.Security.Claims;
 using Security.DAL.Security;
 using CRM.Core;
-using CRM.Controls;
 using System.IO;
 using System.Drawing;
 using System.Configuration;

@@ -21,10 +21,15 @@ $(document).ready(function () {
                 //$('.msgInfo').text(data.Message);
                 //$('#myModal').modal('show');
                 isSuccess = data.isSuccess;
-                ConfirmMessageBox(null, data.Message, function () {
-                    if (isSuccess = "1")
-                        document.location = "/Admin/Customer";
-                }, false);
+                if (isSuccess == "1") {
+                    alert('jquery is ok ');
+                    document.location = "/Admin/Customer";
+                }
+
+                //ConfirmMessageBox(null, data.Message, function () {
+                //    if (isSuccess = "1")
+                //        document.location = "/Admin/Customer";
+                //}, false);
             },
             complete: function () { }
         });

@@ -114,8 +114,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Captcha\RandomImage.cs" />
-    <Compile Include="GoLuceneTenants.cs" />
-    <Compile Include="GoLuceneUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
